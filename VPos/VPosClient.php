@@ -1,169 +1,157 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace KHTools\VPos;
 
+use KHTools\VPos\Exceptions\ClientErrorException;
+use KHTools\VPos\Exceptions\HttpErrorException;
+use KHTools\VPos\Exceptions\InvalidArgumentException;
+use KHTools\VPos\Exceptions\UnhandledErrorException;
+use KHTools\VPos\Requests\PaymentProcessRequest;
+use KHTools\VPos\Requests\RequestInterface;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\Service\ServiceSubscriberInterface;
+use Symfony\Contracts\Service\ServiceSubscriberTrait;
 
-class VPosClient
+class VPosClient implements ServiceSubscriberInterface
 {
-    const LANGUAGE_CODE_DE = 'DE';
-    const LANGUAGE_CODE_EN = 'EN';
-    const LANGUAGE_CODE_ES = 'ES';
-    const LANGUAGE_CODE_FR = 'FR';
-    const LANGUAGE_CODE_HU = 'HU';
-    const LANGUAGE_CODE_IT = 'IT';
-    const LANGUAGE_CODE_PL = 'PL';
-    const LANGUAGE_CODE_PT = 'PT';
-    const LANGUAGE_CODE_RO = 'RO';
-    const LANGUAGE_CODE_SK = 'SK';
-    
-    const LANGUAGE_CODES = [
-        self::LANGUAGE_CODE_DE,
-        self::LANGUAGE_CODE_EN,
-        self::LANGUAGE_CODE_ES,
-        self::LANGUAGE_CODE_FR,
-        self::LANGUAGE_CODE_HU,
-        self::LANGUAGE_CODE_IT,
-        self::LANGUAGE_CODE_PL,
-        self::LANGUAGE_CODE_PT,
-        self::LANGUAGE_CODE_RO,
-        self::LANGUAGE_CODE_SK,
+    use ServiceSubscriberTrait;
+
+    public const VERSION_REST_V1 = 'rv1';
+
+    public const VERSIONS = [
+        self::VERSION_REST_V1,
     ];
 
-    const VERSION_LEGACY = 'legacy';
-    const VERSION_V1 = 'v1';
-    const VERSIONS = [
-        self::VERSION_LEGACY,
-        self::VERSION_V1
-    ];
+    private ClientInterface $httpClient;
 
-    const PAYMENT_ENDPOINT_PATH = '/PGPayment';
-    const RESULT_ENDPOINT_PATH = '/PGResult';
-    
-    private SignatureProvider $signatureProvider;
-    private int $merchantId;
-    private bool $isTest;
-    private ?ClientInterface $httpClient;
-    private string $version;
-
-    public function __construct(string $version, int $merchantId, SignatureProvider $signatureProvider, bool $isTest = false, ClientInterface $httpClient = null)
+    public function __construct(
+        private readonly string $version,
+        private readonly bool $isTest = false,
+    )
     {
-        $this->version = $version;
-        $this->merchantId = $merchantId;
-        $this->signatureProvider = $signatureProvider;
-        $this->isTest = $isTest;
-        $this->httpClient = $httpClient;
+    }
+
+    public static function getSubscribedServices(): array
+    {
+        return [
+            ClientInterface::class => ClientInterface::class,
+            RequestFactoryInterface::class => RequestFactoryInterface::class,
+            StreamFactoryInterface::class => StreamFactoryInterface::class,
+            SignatureProviderInterface::class => SignatureProviderInterface::class,
+            SerializerInterface::class => SerializerInterface::class,
+            NormalizerInterface::class => NormalizerInterface::class,
+            ValidatorInterface::class => ValidatorInterface::class,
+        ];
     }
 
     protected function getEndpointBase(): string
     {
-        if ($this->version === self::VERSION_LEGACY) {
-            return 'https://ebank.khb.hu/PaymentGateway'. ($this->isTest ? 'Test' : '');;
-        }
-        elseif ($this->version === self::VERSION_V1) {
-            return 'https://pay.'. ($this->isTest ? 'sandbox.' : '').'khpos.hu/pay/v1';
-        }
-
+        return match ($this->version) {
+            self::VERSION_REST_V1 => sprintf('https://api.%skhpos.hu/api/v1.0', $this->isTest ? 'sandbox.' : ''),
+        };
     }
-    
-    private function buildQuery(PaymentRequestArguments $arguments, ?string $languageCode = null): string
+
+    private function prepareEndpointPath(string $endpointPath, array $requestParameters): string
     {
-        if ($arguments->getPaymentType() === PaymentRequestArguments::PAYMENT_RESULT_TYPE) {
-            $queryArguments = [
-                PaymentRequestArguments::MERCHANT_ID_REQUEST_ARGUMENT_NAME => $arguments->getMerchantId(),
-                PaymentRequestArguments::TRANSACTION_ID_REQUEST_ARGUMENT_NAME => $arguments->getTransactionId(),
-            ];
-        }
-        else {
-            $queryArguments = [
-                PaymentRequestArguments::MERCHANT_ID_REQUEST_ARGUMENT_NAME => $arguments->getMerchantId(),
-                PaymentRequestArguments::TRANSACTION_ID_REQUEST_ARGUMENT_NAME => $arguments->getTransactionId(),
-                PaymentRequestArguments::PAYMENT_TYPE_REQUEST_ARGUMENT_NAME => $arguments->getPaymentType(),
-                PaymentRequestArguments::AMOUNT_REQUEST_ARGUMENT_NAME => $arguments->getAmount(),
-                PaymentRequestArguments::CURRENCY_REQUEST_ARGUMENT_NAME => $arguments->getCurrency(),
-            ];
-        
-            $queryArguments['sign'] = $this->signatureProvider->sign($arguments);
-        
-            if ($languageCode !== self::LANGUAGE_CODE_HU) {
-                $queryArguments['lang'] = $languageCode;
+        return preg_replace_callback('/\{([^\}]*)\}/', function (array $matchedElements) use ($requestParameters) {
+            $parameterName = $matchedElements[1];
+            $value = $requestParameters[$parameterName] ?? null;
+            if ($value === null) {
+                throw new InvalidArgumentException('Parameter ("%s") not found in request parameters ("%s").', $parameterName, implode('", "', array_keys($requestParameters)));
             }
-        }
-        
-        return \http_build_query($queryArguments);
-    }
-    
-    private function transactionToPaymentRequestArguments(TransactionInterface $transaction, string $paymentType): PaymentRequestArguments
-    {
-        if ($paymentType === PaymentRequestArguments::PAYMENT_RESULT_TYPE) {
-            $paymentArguments = new PaymentRequestArguments($paymentType, $transaction->getId());
-        }
-        else {
-            $paymentArguments = new PaymentRequestArguments($paymentType, $transaction->getId(), (int) ($transaction->getAmount() * 100), PaymentRequestArguments::transactionCurrencyConverter($transaction));
-        }
-        
-        $paymentArguments->setMerchantId($this->merchantId);
-        
-        return $paymentArguments;
-    }
-    
-    public function paymentUrl(TransactionInterface $transaction, $languageCode = self::LANGUAGE_CODE_HU): string
-    {
-        $url = $this->getEndpointBase();
-        $paymentArguments = $this->transactionToPaymentRequestArguments($transaction, PaymentRequestArguments::PAYMENT_PURCHASE_TYPE);
-        $url .= self::PAYMENT_ENDPOINT_PATH.'?'.$this->buildQuery($paymentArguments, $languageCode);
-        
-        return $url;
+
+            return $value;
+        }, $endpointPath);
     }
 
-    public function refundUrl(TransactionInterface $transaction, float $amount = null, $languageCode = self::LANGUAGE_CODE_HU): string
+    public function send(RequestInterface $request)
     {
-        $url = $this->getEndpointBase();
-        $paymentArguments = $this->transactionToPaymentRequestArguments($transaction, PaymentRequestArguments::PAYMENT_REFUND_TYPE);
-        if ($amount !== null) {
-            // TODO check that amount not greater than amount of original transaction
-            $paymentArguments->setAmount((int) ($amount * 100));
-        }
-        $url .= self::PAYMENT_ENDPOINT_PATH.'?'.$this->buildQuery($paymentArguments, $languageCode);
-        
-        return $url;
-    }
+        $requestParameters = $this->getNormalizer()->normalize($request);
+        $requestParameters['signature'] = $this->getSignatureProvider()->sign($requestParameters);
 
-    public function paymentResultCheckUrl(TransactionInterface $transaction): string
-    {
-        $url = $this->getEndpointBase();
-        $paymentArguments = $this->transactionToPaymentRequestArguments($transaction, PaymentRequestArguments::PAYMENT_RESULT_TYPE);
-        $url .= self::RESULT_ENDPOINT_PATH.'?'.$this->buildQuery($paymentArguments);
-        
-        return $url;
-    }
-    
-    protected function fetchPaymentStatus(TransactionInterface $transaction): string
-    {
-        if ($this->httpClient === null) {
-            throw new \LogicException('http client not initialized for payment result check');
-        }
-        
-        $request = $this->httpClient->createRequest('GET', $this->paymentResultCheckUrl($transaction));
-        $response = $this->httpClient->sendRequest($request);
-        
-        return $response->getBody()->getContents();
-    }
-    
-    public function getPaymentResult(TransactionInterface $transaction): PaymentResult
-    {
-        return PaymentResult::initWithResponseString($this->fetchPaymentStatus($transaction));
-    }
+        $endpointPath = $request->getEndpointPath();
 
-    public function refundTransaction(TransactionInterface $transaction, float $amount = null): PaymentResult
-    {
-        if ($this->httpClient === null) {
-            throw new \LogicException('http client not initialized for http request');
+        if ($request->getRequestMethod() === 'GET' && \count($requestParameters) > 0) {
+            $requestParameters['signature'] = urlencode($requestParameters['signature']);
+            $endpointPath = $this->prepareEndpointPath($endpointPath, $requestParameters);
         }
 
-        $request = $this->httpClient->createRequest('GET', $this->refundUrl($transaction, $amount));
-        $response = $this->httpClient->sendRequest($request);
+        $httpRequest = $this->getRequestFactory()->createRequest($request->getRequestMethod(), $this->getEndpointBase().$endpointPath);
 
-        return PaymentResult::initWithResponseString($response->getBody()->getContents());
+        if ($request->getRequestMethod() === 'POST') {
+            $bodyString = json_encode($requestParameters, JSON_PRETTY_PRINT);
+            $stream = $this->getStreamFactory()->createStream($bodyString);
+            $httpRequest = $httpRequest
+                ->withHeader('Content-Type', 'application/json')
+                ->withBody($stream);
+        }
+
+        $response = $this->getHttpClient()->sendRequest($httpRequest);
+
+        if (($statusCode = $response->getStatusCode()) !== 200) {
+            $contentType = $response->getHeaders()['content-type'][0] ?? '';
+
+            if ($statusCode === 403 && $contentType !== 'application/json') {
+                throw new ClientErrorException($response->getBody()->getContents(), 403);
+            }
+
+            if ($contentType !== 'application/json') {
+                throw new UnhandledErrorException(sprintf('Unknown (or missing) content type: "%s"', $contentType));
+            }
+
+            $exceptionClass = HttpErrorException::getErrorClassWithResponseCode($statusCode);
+            throw $this->getSerializer()->deserialize($response->getBody()->getContents(), $exceptionClass, 'json', [
+                JsonDecode::ASSOCIATIVE => true,
+            ]);
+        } else {
+            return $this->getSerializer()->deserialize($response->getBody()->getContents(), $request->getResponseClass(), 'json', [
+                JsonDecode::ASSOCIATIVE => true,
+            ]);
+        }
+    }
+
+    public function getPaymentUrlWithPaymentProcessRequest(PaymentProcessRequest $paymentProcessRequest): string
+    {
+        $requestParameters = $this->getNormalizer()->normalize($paymentProcessRequest);
+        $requestParameters['dttm'] = date("YmdHis");
+        $requestParameters['signature'] = urlencode($this->getSignatureProvider()->sign($requestParameters));
+        $endpointPath = $this->prepareEndpointPath($paymentProcessRequest->getEndpointPath(), $requestParameters);
+        return $this->getEndpointBase().$endpointPath;
+    }
+
+    private function getSignatureProvider(): SignatureProviderInterface
+    {
+        return $this->container->get(SignatureProviderInterface::class);
+    }
+
+    private function getNormalizer(): NormalizerInterface
+    {
+        return $this->container->get(NormalizerInterface::class);
+    }
+
+    private function getSerializer(): SerializerInterface
+    {
+        return $this->container->get(SerializerInterface::class);
+    }
+
+    private function getHttpClient(): ClientInterface
+    {
+        return $this->container->get(ClientInterface::class);
+    }
+
+    private function getRequestFactory(): RequestFactoryInterface
+    {
+        return $this->container->get(RequestFactoryInterface::class);
+    }
+
+    private function getStreamFactory(): StreamFactoryInterface
+    {
+        return $this->container->get(StreamFactoryInterface::class);
     }
 }

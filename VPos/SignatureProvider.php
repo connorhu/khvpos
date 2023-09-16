@@ -2,101 +2,87 @@
 
 namespace KHTools\VPos;
 
-class SignatureProvider
+use KHTools\VPos\Entities\Merchant;
+use KHTools\VPos\Exceptions\SSLErrorException;
+use KHTools\VPos\Keys\PrivateKey;
+use KHTools\VPos\Keys\PublicKey;
+
+class SignatureProvider implements SignatureProviderInterface
 {
-    private string $privateKeyPath;
-    private string $privateKeyPassphrase;
-    private $privateKey;
-    
-    public function __construct(string $privateKeyPath, string $privateKeyPassphrase = '', bool $lazyKeyload = true)
+    private array $privateKeys;
+    private PublicKey $mipsPublicKey;
+
+    /**
+     * @param array<string, PrivateKey> $privateKeys
+     * @param string $mipsPublicKeyPath
+     */
+    public function __construct(
+        array $privateKeys,
+        private readonly string $mipsPublicKeyPath,
+    )
     {
-        if (!\is_file($privateKeyPath)) {
-            throw new \LogicException(sprintf('Private Key not exists at path: "%s".', $privateKeyPath));
+        foreach ($privateKeys as $merchantId => $privateKey) {
+            $this->addPrivateKey($merchantId, $privateKey);
         }
-        
-        if (!\function_exists('openssl_sign')) {
-            throw new \LogicException('OpenSSL extension is required.');
+        $this->mipsPublicKey = new PublicKey($this->mipsPublicKeyPath);
+    }
+
+    public function addPrivateKey(string $merchantId, PrivateKey $privateKey): void
+    {
+        $this->privateKeys[$merchantId] = $privateKey;
+    }
+
+    private function getPrivateKeyWithMerchantId(string $merchantId): PrivateKey
+    {
+        $key = $this->privateKeys[$merchantId];
+
+        if (!$key->isKeyLoaded()) {
+            $key->load();
         }
 
-        if ($lazyKeyload === true) {
-            $this->privateKeyPath = $privateKeyPath;
-            $this->privateKeyPassphrase = $privateKeyPassphrase;
-        }
-        else {
-            $this->privateKey = self::doLoadKey(file_get_contents($privateKeyPath), $privateKeyPassphrase);
-        }
+        return $key;
     }
-    
-    private static function doLoadKey(string $privateKeyString, string $passphrase = '')/* : resource */
+
+    private function buildStringContentToSign(array $contentToSign): string
     {
-        $privateKey = \openssl_get_privatekey($privateKeyString, $passphrase);
-        
-        if ($privateKey === false) {
-            $error = self::getLastOpenSSLErrorMessage();
-            throw new \LogicException(sprintf('Failed to read private key. OpenSSL error: "%s".', $error));
-        }
-        
-        return $privateKey;
-    }
-    
-    private static function getLastOpenSSLErrorMessage(): string
-    {
+        $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($contentToSign));
+
         $buffer = '';
-        while ($message = \openssl_error_string()) {
-            $buffer .= $message;
-        }
-        
-        return $buffer;
-    }
-    
-    private function loadKey(): void
-    {
-        if ($this->privateKey !== null) {
-            return;
-        }
-        
-        $this->privateKey = self::doLoadKey(file_get_contents($this->privateKeyPath), $this->privateKeyPassphrase);
-    }
-    
-    public function __destruct()
-    {
-        if (is_resource($this->privateKey) && PHP_VERSION_ID < 80000) {
-            \openssl_free_key($this->privateKey);
-        }
-    }
-    
-    private function getFieldSignOrder(): array
-    {
-        return [
-            PaymentRequestArguments::MERCHANT_ID_REQUEST_ARGUMENT_NAME => 'merchantId',
-            PaymentRequestArguments::TRANSACTION_ID_REQUEST_ARGUMENT_NAME => 'transactionId',
-            PaymentRequestArguments::PAYMENT_TYPE_REQUEST_ARGUMENT_NAME => 'paymentType',
-            PaymentRequestArguments::AMOUNT_REQUEST_ARGUMENT_NAME => 'amount',
-            PaymentRequestArguments::CURRENCY_REQUEST_ARGUMENT_NAME => 'currency',
-        ];
-    }
-    
-    private function buildQueryToSign(PaymentRequestArguments $arguments): string
-    {
-        $buffer = '';
-        foreach ($this->getFieldSignOrder() as $requestArgumentName => $fieldName)
-        {
-            $buffer .= '&'. $requestArgumentName .'='. $arguments->{'get'.ucfirst($fieldName)}();
+        foreach ($iterator as $key => $item) {
+            if ($key === 'signature') {
+                continue;
+            }
+
+            if (is_bool($item)) {
+                $item = $item === true ? 'true' : 'false';
+            }
+            $buffer .= $item .'|';
         }
 
-        return ltrim($buffer, '&');
+        return rtrim($buffer, '|');
     }
-    
-    public function sign(PaymentRequestArguments $arguments): string
+
+    public function sign(Merchant $merchant, array $contentToSign): string
     {
-        $this->loadKey();
-        
-        $queryString = $this->buildQueryToSign($arguments);
-        
         $signature = '';
-        
-        \openssl_sign($queryString, $signature, $this->privateKey, OPENSSL_ALGO_SHA1);
 
-        return \bin2hex($signature);
+        \openssl_sign($this->buildStringContentToSign($contentToSign), $signature, $this->getPrivateKeyWithMerchantId($merchant->merchantId)->getSSLKey(), OPENSSL_ALGO_SHA256);
+
+        return \base64_encode($signature);
+    }
+
+    public function verify(array $signedContent, string $signature): bool
+    {
+        $data = $this->buildStringContentToSign($signedContent);
+        $signature = base64_decode($signature);
+        $result = \openssl_verify($data, $signature, $this->mipsPublicKey->getSSLKey(), OPENSSL_ALGO_SHA256);
+
+        if ($result === 1) {
+            return true;
+        } elseif ($result === 0) {
+            return false;
+        }
+
+        throw new SSLErrorException(sprintf('SSL error occurred: "%s"', openssl_error_string()));
     }
 }

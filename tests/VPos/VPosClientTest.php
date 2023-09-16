@@ -2,17 +2,11 @@
 
 namespace KHTools\Tests\VPos;
 
-use KHTools\VPos\VPosClient;
-use KHTools\VPos\PaymentRequestArguments;
-use KHTools\VPos\SignatureProvider;
-use KHTools\VPos\TransactionInterface;
-use KHTools\Tests\VPos\Fixtures\TransactionImplementation;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpClient\Psr18Client;
 
 class VPosClientTest extends TestCase
 {
-    private function callPrivateMethod($class, string $methodName, array $args = [])
+    /*private function callPrivateMethod($class, string $methodName, array $args = [])
     {
         $paymentGateway = new \ReflectionClass($class);
         $method = $paymentGateway->getMethod($methodName);
@@ -35,7 +29,7 @@ class VPosClientTest extends TestCase
     
     /**
      * @dataProvider buildQueryDataProvider
-     */
+     * /
     public function testBuildQuery(string $languageCode, string $expectedQueryString)
     {
         $httpClient = new Psr18Client();
@@ -59,7 +53,7 @@ class VPosClientTest extends TestCase
     
     /**
      * @dataProvider transactionToPaymentRequestArgumentsDataProvider
-     */
+     * /
     public function testTransactionToPaymentRequestArguments(TransactionInterface $transaction, string $paymentType, PaymentRequestArguments $requestArgument): void
     {
         $signatureProvider = new SignatureProvider(__DIR__.'/Fixtures/test1_private_key.pem');
@@ -89,7 +83,7 @@ class VPosClientTest extends TestCase
     
     /**
      * @dataProvider paymentUrlDataProvider
-     */
+     * /
     public function testPaymentUrl(TransactionInterface $transaction, string $language, string $url): void
     {
         $signatureProvider = new SignatureProvider(__DIR__.'/Fixtures/test1_private_key.pem');
@@ -113,7 +107,7 @@ class VPosClientTest extends TestCase
     
     /**
      * @dataProvider refundUrlDataProvider
-     */
+     * /
     public function testRefundUrl(TransactionInterface $transaction, string $language, string $url): void
     {
         $signatureProvider = new SignatureProvider(__DIR__.'/Fixtures/test1_private_key.pem');
@@ -146,5 +140,5 @@ class VPosClientTest extends TestCase
         $paymentGateway = new VPosClient(VPosClient::VERSION_V1, 60000, $signatureProvider, false);
         
         $this->assertSame($paymentGateway->paymentResultCheckUrl($transaction), 'https://pay.khpos.hu/pay/v1/PGResult?mid=60000&txid=678');
-    }
+    }*/
 }
