@@ -27,9 +27,9 @@ class SignatureProvider implements SignatureProviderInterface
         $this->mipsPublicKey = new PublicKey($this->mipsPublicKeyPath);
     }
 
-    public function addPrivateKey(string $merchantId, PrivateKey $privateKey): void
+    public function addPrivateKey(string $merchantId, PrivateKey|string $privateKey, ?string $privateKeyPassphrase = null): void
     {
-        $this->privateKeys[$merchantId] = $privateKey;
+        $this->privateKeys[$merchantId] = $privateKey instanceof PrivateKey ? $privateKey : new PrivateKey($privateKey, $privateKeyPassphrase);
     }
 
     private function getPrivateKeyWithMerchantId(string $merchantId): PrivateKey
