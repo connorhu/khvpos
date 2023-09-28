@@ -7,14 +7,14 @@ use KHTools\VPos\Responses\EchoResponse;
 use KHTools\VPos\Responses\PaymentInitResponse;
 use KHTools\VPos\Responses\PaymentStatusResponse;
 use KHTools\VPos\Responses\ResponseInterface;
-use KHTools\VPos\SignatureProvider;
+use KHTools\VPos\SignatureProviderInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class ResponseNormalizer implements DenormalizerInterface
 {
     public function __construct(
-        private readonly SignatureProvider $signatureProvider,
+        private readonly SignatureProviderInterface $signatureProvider,
         private readonly ObjectNormalizer $objectNormalizer,
     )
     {
