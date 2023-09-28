@@ -73,7 +73,7 @@ class VPosClient implements ServiceSubscriberInterface
     public function send(RequestInterface $request)
     {
         $requestParameters = $this->getNormalizer()->normalize($request);
-        $requestParameters['signature'] = $this->getSignatureProvider()->sign($requestParameters);
+        $requestParameters['signature'] = $this->getSignatureProvider()->sign($request->getMerchant(), $requestParameters);
 
         $endpointPath = $request->getEndpointPath();
 
