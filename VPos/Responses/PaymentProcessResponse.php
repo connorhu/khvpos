@@ -3,15 +3,18 @@
 namespace KHTools\VPos\Responses;
 
 use KHTools\VPos\Responses\Traits\CommonResponseTrait;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 class PaymentProcessResponse implements ResponseInterface
 {
     use CommonResponseTrait;
 
+    #[SerializedName(serializedName: 'payId')]
     private string $paymentId;
 
     private ?int $paymentStatus = null;
 
+    #[SerializedName(serializedName: 'authCode')]
     private ?string $authorizationCode = null;
 
     /**
