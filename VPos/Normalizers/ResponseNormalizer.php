@@ -5,6 +5,7 @@ namespace KHTools\VPos\Normalizers;
 use KHTools\VPos\Exceptions\VerificationFailedException;
 use KHTools\VPos\Responses\EchoResponse;
 use KHTools\VPos\Responses\PaymentInitResponse;
+use KHTools\VPos\Responses\PaymentProcessResponse;
 use KHTools\VPos\Responses\PaymentStatusResponse;
 use KHTools\VPos\Responses\ResponseInterface;
 use KHTools\VPos\SignatureProviderInterface;
@@ -41,6 +42,16 @@ class ResponseNormalizer implements DenormalizerInterface
                 'authCode',
                 'statusDetail',
                 'actions',
+            ],
+            PaymentProcessResponse::class => [
+                'payId',
+                'dttm',
+                'resultCode',
+                'resultMessage',
+                'paymentStatus',
+                'authCode',
+                'merchantData',
+                'statusDetail',
             ],
             'TODD reverse class' => [
                 'payId',
