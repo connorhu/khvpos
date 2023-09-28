@@ -8,10 +8,12 @@ use KHTools\VPos\Exceptions\InvalidArgumentException;
 use KHTools\VPos\Exceptions\UnhandledErrorException;
 use KHTools\VPos\Requests\PaymentProcessRequest;
 use KHTools\VPos\Requests\RequestInterface;
+use KHTools\VPos\Responses\ResponseInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -125,12 +127,22 @@ class VPosClient implements ServiceSubscriberInterface
         return $this->getEndpointBase().$endpointPath;
     }
 
+    public function initResponseWithArray(array $responseArray, string $responseClass): ResponseInterface
+    {
+        return $this->getDenormalizer()->denormalize($responseArray, $responseClass, 'array');
+    }
+
     private function getSignatureProvider(): SignatureProviderInterface
     {
         return $this->container->get(SignatureProviderInterface::class);
     }
 
     private function getNormalizer(): NormalizerInterface
+    {
+        return $this->container->get(NormalizerInterface::class);
+    }
+
+    private function getDenormalizer(): DenormalizerInterface
     {
         return $this->container->get(NormalizerInterface::class);
     }
