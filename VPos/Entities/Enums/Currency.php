@@ -38,13 +38,4 @@ enum Currency implements StringValueEnum
             'USD' => Currency::USD,
         };
     }
-
-    public static function enumWithTransactionCurrency(int $currency): Currency
-    {
-        return match ($currency) {
-            TransactionInterface::TRANSACTION_EUR_CURRENCY => Currency::EUR,
-            TransactionInterface::TRANSACTION_HUF_CURRENCY => Currency::HUF,
-            TransactionInterface::TRANSACTION_USD_CURRENCY => Currency::USD,
-        };
-    }
 }
