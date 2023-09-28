@@ -120,7 +120,7 @@ class VPosClient implements ServiceSubscriberInterface
     {
         $requestParameters = $this->getNormalizer()->normalize($paymentProcessRequest);
         $requestParameters['dttm'] = date("YmdHis");
-        $requestParameters['signature'] = urlencode($this->getSignatureProvider()->sign($requestParameters));
+        $requestParameters['signature'] = urlencode($this->getSignatureProvider()->sign($paymentProcessRequest->getMerchant(), $requestParameters));
         $endpointPath = $this->prepareEndpointPath($paymentProcessRequest->getEndpointPath(), $requestParameters);
         return $this->getEndpointBase().$endpointPath;
     }
