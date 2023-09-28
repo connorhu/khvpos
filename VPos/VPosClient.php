@@ -127,6 +127,12 @@ class VPosClient implements ServiceSubscriberInterface
         return $this->getEndpointBase().$endpointPath;
     }
 
+    /**
+     * @psalm-template Tresponse
+     * @param array $responseArray
+     * @psalm-param class-string<Tresponse> $responseClass
+     * @return Tresponse
+     */
     public function initResponseWithArray(array $responseArray, string $responseClass): ResponseInterface
     {
         return $this->getDenormalizer()->denormalize($responseArray, $responseClass, 'array');
