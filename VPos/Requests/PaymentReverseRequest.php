@@ -4,7 +4,7 @@ namespace KHTools\VPos\Requests;
 
 use KHTools\VPos\Requests\Traits\MerchantTrait;
 use KHTools\VPos\Requests\Traits\PaymentIdTrait;
-use KHTools\VPos\Responses\EchoResponse;
+use KHTools\VPos\Responses\PaymentReverseResponse;
 use Symfony\Component\Serializer\Annotation\Ignore;
 
 class PaymentReverseRequest implements RequestInterface
@@ -27,7 +27,6 @@ class PaymentReverseRequest implements RequestInterface
     #[Ignore]
     public function getResponseClass(): string
     {
-        exit;
-        return EchoResponse::class;
+        return PaymentReverseResponse::class;
     }
 }

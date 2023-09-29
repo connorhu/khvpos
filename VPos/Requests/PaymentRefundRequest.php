@@ -5,6 +5,7 @@ namespace KHTools\VPos\Requests;
 use KHTools\VPos\Requests\Traits\MerchantTrait;
 use KHTools\VPos\Requests\Traits\PaymentIdTrait;
 use KHTools\VPos\Responses\EchoResponse;
+use KHTools\VPos\Responses\PaymentRefundResponse;
 use Symfony\Component\Serializer\Annotation\Ignore;
 
 class PaymentRefundRequest implements RequestInterface
@@ -29,8 +30,7 @@ class PaymentRefundRequest implements RequestInterface
     #[Ignore]
     public function getResponseClass(): string
     {
-        exit;
-        return EchoResponse::class;
+        return PaymentRefundResponse::class;
     }
 
     /**

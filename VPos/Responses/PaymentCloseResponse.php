@@ -4,24 +4,21 @@ namespace KHTools\VPos\Responses;
 
 use KHTools\VPos\Responses\Traits\CommonResponseTrait;
 use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
-class PaymentStatusResponse implements ResponseInterface
+class PaymentCloseResponse implements ResponseInterface
 {
     use CommonResponseTrait;
 
+    #[SerializedName(serializedName: 'payId')]
     private string $paymentId;
 
     private ?int $paymentStatus = null;
 
+    #[SerializedName(serializedName: 'authCode')]
     private ?string $authorizationCode = null;
 
     private ?string $statusDetail = null;
-
-    /**
-     * @TODO implement
-     */
-    #[Ignore]
-    private $actions;
 
     /**
      * @return string

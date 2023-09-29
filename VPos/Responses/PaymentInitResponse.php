@@ -14,7 +14,7 @@ class PaymentInitResponse implements ResponseInterface
 
     private int $paymentStatus;
 
-    private ?array $statusDetail = [];
+    private ?string $statusDetail = null;
 
     /**
      * @return string
@@ -49,17 +49,17 @@ class PaymentInitResponse implements ResponseInterface
     }
 
     /**
-     * @return array|null
+     * @return string|null
      */
-    public function getStatusDetail(): ?array
+    public function getStatusDetail(): ?string
     {
         return $this->statusDetail;
     }
 
     /**
-     * @param array|null $statusDetail
+     * @param string|null $statusDetail
      */
-    public function setStatusDetail(?array $statusDetail): void
+    public function setStatusDetail(?string $statusDetail): void
     {
         $this->statusDetail = $statusDetail;
     }
