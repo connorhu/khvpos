@@ -8,7 +8,7 @@ use KHTools\VPos\Entities\Enums\Currency;
 use KHTools\VPos\Entities\Enums\Language;
 use KHTools\VPos\Entities\Enums\PaymentMethod;
 use KHTools\VPos\Entities\Enums\PaymentOperation;
-use KHTools\VPos\Entities\Enums\ReturnMethod;
+use KHTools\VPos\Entities\Enums\HttpMethod;
 use KHTools\VPos\Entities\Order;
 use KHTools\VPos\Requests\Traits\MerchantTrait;
 use KHTools\VPos\Responses\PaymentInitResponse;
@@ -36,7 +36,7 @@ class PaymentInitRequest implements RequestInterface
 
     private string $returnUrl;
 
-    private ReturnMethod $returnMethod;
+    private HttpMethod $returnMethod;
 
     /**
      * @var array<int, CartItem>
@@ -175,17 +175,17 @@ class PaymentInitRequest implements RequestInterface
     }
 
     /**
-     * @return ReturnMethod
+     * @return HttpMethod
      */
-    public function getReturnMethod(): ReturnMethod
+    public function getReturnMethod(): HttpMethod
     {
         return $this->returnMethod;
     }
 
     /**
-     * @param ReturnMethod $returnMethod
+     * @param HttpMethod $returnMethod
      */
-    public function setReturnMethod(ReturnMethod $returnMethod): void
+    public function setReturnMethod(HttpMethod $returnMethod): void
     {
         $this->returnMethod = $returnMethod;
     }

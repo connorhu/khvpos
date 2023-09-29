@@ -15,4 +15,9 @@ enum OrderAvailability implements StringValueEnum
             OrderAvailability::PreOrder => 'preorder',
         };
     }
+
+    public static function initWithString(string $value): StringValueEnum
+    {
+        // TODO: Implement initWithString() method.
+    }
 }

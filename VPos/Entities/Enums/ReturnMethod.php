@@ -1,7 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace KHTools\VPos\Entities\Enums;
 
+/**
+ * @deprecated
+ * @see HttpMethod
+ */
 enum ReturnMethod implements StringValueEnum
 {
     case Get;
@@ -14,5 +18,10 @@ enum ReturnMethod implements StringValueEnum
             ReturnMethod::Get => 'GET',
             ReturnMethod::Post => 'POST',
         };
+    }
+
+    public static function initWithString(string $value): StringValueEnum
+    {
+        // TODO: Implement initWithString() method.
     }
 }

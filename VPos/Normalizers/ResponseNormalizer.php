@@ -2,6 +2,7 @@
 
 namespace KHTools\VPos\Normalizers;
 
+use KHTools\VPos\Entities\Authenticate;
 use KHTools\VPos\Exceptions\VerificationFailedException;
 use KHTools\VPos\Responses\EchoResponse;
 use KHTools\VPos\Responses\PaymentCloseResponse;
@@ -80,7 +81,21 @@ class ResponseNormalizer implements DenormalizerInterface
             }
         }
 
-        return $this->objectNormalizer->denormalize($data, $type, $format);
+        $object = $this->objectNormalizer->denormalize($data, $type, $format);
+
+        if ($object instanceof PaymentStatusResponse && isset($data['actions'])) {
+            if (isset($data['actions']['authenticate'])) {
+                $authenticate = $this->objectNormalizer->denormalize($data['actions']['authenticate'], Authenticate::class, 'array');
+                $object->setAuthenticateAction($authenticate);
+            }
+
+            /*if (isset($data['actions']['fingerprint'])) {
+                $authenticate = $this->objectNormalizer->denormalize($data['actions']['fingerprint'], Authenticate::class, 'array');
+                $object->setAuthenticateAction($authenticate);
+            }*/
+        }
+
+        return $object;
     }
 
     public function supportsDenormalization(mixed $data, string $type, string $format = null): bool

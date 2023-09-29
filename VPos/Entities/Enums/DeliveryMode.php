@@ -21,4 +21,9 @@ enum DeliveryMode implements StringValueEnum
             DeliveryMode::TwoDaysLater => '3',
         };
     }
+
+    public static function initWithString(string $value): StringValueEnum
+    {
+        // TODO: Implement initWithString() method.
+    }
 }

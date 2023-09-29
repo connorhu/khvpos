@@ -33,4 +33,9 @@ enum CustomerLoginAuth implements StringValueEnum
             CustomerLoginAuth::Api => 'api',
         };
     }
+
+    public static function initWithString(string $value): StringValueEnum
+    {
+        // TODO: Implement initWithString() method.
+    }
 }

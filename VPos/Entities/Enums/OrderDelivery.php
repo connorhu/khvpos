@@ -22,4 +22,9 @@ enum OrderDelivery implements StringValueEnum
             OrderDelivery::Other => 'other',
         };
     }
+
+    public static function initWithString(string $value): StringValueEnum
+    {
+        // TODO: Implement initWithString() method.
+    }
 }

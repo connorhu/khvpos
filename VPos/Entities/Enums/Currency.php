@@ -38,4 +38,9 @@ enum Currency implements StringValueEnum
             'USD' => Currency::USD,
         };
     }
+
+    public static function initWithString(string $value): StringValueEnum
+    {
+        // TODO: Implement initWithString() method.
+    }
 }

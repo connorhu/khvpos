@@ -11,7 +11,7 @@ use KHTools\VPos\Entities\Enums\CustomerLoginAuth;
 use KHTools\VPos\Entities\Enums\Language;
 use KHTools\VPos\Entities\Enums\PaymentMethod;
 use KHTools\VPos\Entities\Enums\PaymentOperation;
-use KHTools\VPos\Entities\Enums\ReturnMethod;
+use KHTools\VPos\Entities\Enums\HttpMethod;
 use KHTools\VPos\Entities\Merchant;
 use KHTools\VPos\Normalizers\CartItemNormalizer;
 use KHTools\VPos\Normalizers\EnumNormalizer;
@@ -147,7 +147,7 @@ class RequestNormalizerTest extends TestCase
         ]];
 
         $paymentInit = new PaymentInitRequest();
-        $paymentInit->setReturnMethod(ReturnMethod::Post);
+        $paymentInit->setReturnMethod(HttpMethod::Post);
         yield [$paymentInit, [
             'returnMethod' => 'POST',
         ]];

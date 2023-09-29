@@ -22,4 +22,9 @@ enum OrderType implements StringValueEnum
             OrderType::Check => 'check',
         };
     }
+
+    public static function initWithString(string $value): StringValueEnum
+    {
+        // TODO: Implement initWithString() method.
+    }
 }

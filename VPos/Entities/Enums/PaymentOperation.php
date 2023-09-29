@@ -15,4 +15,9 @@ enum PaymentOperation implements StringValueEnum
             PaymentOperation::OneClick => 'oneclickPayment',
         };
     }
+
+    public static function initWithString(string $value): StringValueEnum
+    {
+        // TODO: Implement initWithString() method.
+    }
 }

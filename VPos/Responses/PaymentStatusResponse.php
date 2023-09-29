@@ -2,26 +2,27 @@
 
 namespace KHTools\VPos\Responses;
 
+use KHTools\VPos\Entities\Authenticate;
 use KHTools\VPos\Responses\Traits\CommonResponseTrait;
-use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 class PaymentStatusResponse implements ResponseInterface
 {
     use CommonResponseTrait;
 
+    #[SerializedName(serializedName: 'payId')]
     private string $paymentId;
 
     private ?int $paymentStatus = null;
 
+    #[SerializedName(serializedName: 'authCode')]
     private ?string $authorizationCode = null;
 
     private ?string $statusDetail = null;
 
-    /**
-     * @TODO implement
-     */
-    #[Ignore]
-    private $actions;
+    private ?Authenticate $authenticateAction = null;
+
+    // private ?Fingerprint $fingerprintAction = null;
 
     /**
      * @return string
@@ -85,5 +86,21 @@ class PaymentStatusResponse implements ResponseInterface
     public function setStatusDetail(?string $statusDetail): void
     {
         $this->statusDetail = $statusDetail;
+    }
+
+    /**
+     * @return Authenticate|null
+     */
+    public function getAuthenticateAction(): ?Authenticate
+    {
+        return $this->authenticateAction;
+    }
+
+    /**
+     * @param Authenticate|null $authenticateAction
+     */
+    public function setAuthenticateAction(?Authenticate $authenticateAction): void
+    {
+        $this->authenticateAction = $authenticateAction;
     }
 }

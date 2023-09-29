@@ -46,4 +46,9 @@ enum Language implements StringValueEnum
             self::SV => 'sv',
         };
     }
+
+    public static function initWithString(string $value): StringValueEnum
+    {
+        // TODO: Implement initWithString() method.
+    }
 }
