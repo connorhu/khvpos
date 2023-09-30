@@ -107,15 +107,22 @@ class VPosClient implements ServiceSubscriberInterface
                 throw new UnhandledErrorException(sprintf('Unknown (or missing) content type: "%s"', $contentType));
             }
 
-            $exceptionClass = HttpErrorException::getErrorClassWithResponseCode($statusCode);
-            throw $this->getSerializer()->deserialize($response->getBody()->getContents(), $exceptionClass, 'json', [
-                JsonDecode::ASSOCIATIVE => true,
-            ]);
+            $responseClass = HttpErrorException::getErrorClassWithResponseCode($statusCode);
         } else {
-            return $this->getSerializer()->deserialize($response->getBody()->getContents(), $request->getResponseClass(), 'json', [
-                JsonDecode::ASSOCIATIVE => true,
-            ]);
+            $responseClass = $request->getResponseClass();
         }
+
+        $content = $response->getBody()->getContents();
+
+        $responseObject = $this->getSerializer()->deserialize($content, $responseClass, 'json', [
+            JsonDecode::ASSOCIATIVE => true,
+        ]);
+
+        if ($responseObject instanceof \Exception) {
+            throw $responseObject;
+        }
+
+        return $responseObject;
     }
 
     public function getPaymentUrlWithPaymentProcessRequest(PaymentProcessRequest $paymentProcessRequest): string
