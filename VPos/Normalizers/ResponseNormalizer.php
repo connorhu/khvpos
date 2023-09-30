@@ -72,10 +72,11 @@ class ResponseNormalizer implements DenormalizerInterface
 
     public function denormalize(mixed $data, string $type, string $format = null, array $context = [])
     {
+        $signature = $data['signature'] ?? null;
         $data = NormalizerResultOrderingHelper::orderArray($data, self::responseKeyOrderWithClass($type));
 
-        if (isset($data['signature'])) {
-            $verificationResult = $this->signatureProvider->verify($data, $data['signature']);
+        if ($signature !== null) {
+            $verificationResult = $this->signatureProvider->verify($data, $signature);
             if ($verificationResult === false) {
                 throw new VerificationFailedException();
             }
