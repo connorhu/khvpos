@@ -28,7 +28,7 @@ class ResponseNormalizer implements DenormalizerInterface
     private function responseKeyOrderWithClass(string $class): array
     {
         return match ($class) {
-            EchoResponse::class => ['merchantId', 'dttm'],
+            EchoResponse::class => ['dttm', 'resultCode', 'resultMessage'],
             PaymentInitResponse::class, PaymentReverseResponse::class => [
                 'payId',
                 'dttm',
