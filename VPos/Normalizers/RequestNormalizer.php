@@ -104,6 +104,9 @@ class RequestNormalizer implements NormalizerInterface
         } elseif ($object instanceof PaymentRefundRequest) {
             return [
                 AbstractNormalizer::CALLBACKS => [
+                    'merchant' => function (Merchant $value) {
+                        return $value->merchantId;
+                    },
                     'amount' => function (float $value, PaymentRefundRequest $request) {
                         return $request->getRawAmount();
                     },
