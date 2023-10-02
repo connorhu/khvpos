@@ -40,6 +40,6 @@ class EnumNormalizer implements NormalizerInterface, DenormalizerInterface
 
     public function supportsDenormalization(mixed $data, string $type, string $format = null)
     {
-        return class_implements($type)[StringValueEnum::class] === StringValueEnum::class;
+        return (class_implements($type)[StringValueEnum::class] ?? null) === StringValueEnum::class;
     }
 }
