@@ -86,7 +86,7 @@ class VPosClient implements ServiceSubscriberInterface
 
         $httpRequest = $this->getRequestFactory()->createRequest($request->getRequestMethod(), $this->getEndpointBase().$endpointPath);
 
-        if ($request->getRequestMethod() === 'POST') {
+        if ($request->getRequestMethod() === 'POST' || $request->getRequestMethod() === 'PUT') {
             $bodyString = json_encode($requestParameters, JSON_PRETTY_PRINT);
             $stream = $this->getStreamFactory()->createStream($bodyString);
             $httpRequest = $httpRequest
