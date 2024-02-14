@@ -1,15 +1,15 @@
 {
     "name": "connorhu/khvpos",
-    "description": "Helper tools for working with K&H VPos",
+    "description": "Helper tools for working with K&H src/VPos",
     "license": "MIT",
     "type": "library",
     "require": {
         "php": ">=8.2",
         "psr/http-client": "^1.0",
         "ext-openssl": "*",
-        "symfony/validator": "^6.3|^5.4",
-        "symfony/serializer": "^6.3|^5.4",
-        "symfony/property-access": "^6.3|^5.4"
+        "symfony/validator": "^6.3 | ^5.4",
+        "symfony/serializer": "^6.3 | ^5.4",
+        "symfony/property-access": "^6.3 | ^5.4"
     },
     "require-dev": {
         "symfony/http-client": "^6.3",
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "KHTools\\VPos\\": "VPos/"
+            "KHTools\\VPos\\": "src/"
         }
     },
     "autoload-dev": {
