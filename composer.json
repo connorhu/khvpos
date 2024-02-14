@@ -27,5 +27,8 @@
         "psr-4": {
             "KHTools\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "phpunit --colors=always"
     }
 }
