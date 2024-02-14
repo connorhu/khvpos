@@ -14,7 +14,7 @@ class HttpErrorNormalizer implements DenormalizerInterface
         return new $type($data['resultMessage'] ?? 'missing', $data['resultCode'] ?? 0);
     }
 
-    public function supportsDenormalization(mixed $data, string $type, string $format = null): bool
+    public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
     {
         return $type === ClientErrorException::class || $type === ServerErrorException::class;
     }

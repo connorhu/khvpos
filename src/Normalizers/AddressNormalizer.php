@@ -67,7 +67,7 @@ class AddressNormalizer implements NormalizerInterface
         ]);
     }
 
-    public function supportsNormalization(mixed $data, string $format = null): bool
+    public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
     {
         return $data instanceof Address;
     }
