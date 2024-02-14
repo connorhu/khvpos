@@ -23,8 +23,15 @@ enum OrderType implements StringValueEnum
         };
     }
 
-    public static function initWithString(string $value): StringValueEnum
+    public static function initWithString(string $value): self
     {
-        // TODO: Implement initWithString() method.
+        return match ($value) {
+            'type' => OrderType::Type,
+            'purchase' => OrderType::Purchase,
+            'balance' => OrderType::Balance,
+            'prepaid' => OrderType::Prepaid,
+            'cash' => OrderType::Cash,
+            'check' => OrderType::Check,
+        };
     }
 }

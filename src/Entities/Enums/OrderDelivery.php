@@ -23,8 +23,15 @@ enum OrderDelivery implements StringValueEnum
         };
     }
 
-    public static function initWithString(string $value): StringValueEnum
+    public static function initWithString(string $value): self
     {
-        // TODO: Implement initWithString() method.
+        return match ($value) {
+            'shipping' => OrderDelivery::Shipping,
+            'shipping_verified' => OrderDelivery::ShippingVerified,
+            'instore' => OrderDelivery::InStore,
+            'digital' => OrderDelivery::Digital,
+            'ticket' => OrderDelivery::Ticket,
+            'other' => OrderDelivery::Other,
+        };
     }
 }

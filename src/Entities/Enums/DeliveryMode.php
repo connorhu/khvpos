@@ -22,8 +22,13 @@ enum DeliveryMode implements StringValueEnum
         };
     }
 
-    public static function initWithString(string $value): StringValueEnum
+    public static function initWithString(string $value): self
     {
-        // TODO: Implement initWithString() method.
+        return match ($value) {
+            '0' => DeliveryMode::Electronic,
+            '1' => DeliveryMode::SameDay,
+            '2' => DeliveryMode::NextDay,
+            '3' => DeliveryMode::TwoDaysLater,
+        };
     }
 }

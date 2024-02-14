@@ -47,8 +47,27 @@ enum Language implements StringValueEnum
         };
     }
 
-    public static function initWithString(string $value): StringValueEnum
+    public static function initWithString(string $value): self
     {
-        // TODO: Implement initWithString() method.
+        return match ($value) {
+            'hu' => self::HU,
+            'en' => self::EN,
+            'de' => self::DE,
+            'fr' => self::FR,
+            'cs' => self::CS,
+            'it' => self::IT,
+            'ja' => self::JA,
+            'pl' => self::PL,
+            'pt' => self::PT,
+            'ro' => self::RO,
+            'ru' => self::RU,
+            'sk' => self::SK,
+            'es' => self::ES,
+            'tr' => self::TR,
+            'vi' => self::VI,
+            'hr' => self::HR,
+            'sl' => self::SL,
+            'sv' => self::SV,
+        };
     }
 }

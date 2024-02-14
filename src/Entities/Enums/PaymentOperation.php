@@ -16,8 +16,11 @@ enum PaymentOperation implements StringValueEnum
         };
     }
 
-    public static function initWithString(string $value): StringValueEnum
+    public static function initWithString(string $value): self
     {
-        // TODO: Implement initWithString() method.
+        return match ($value) {
+            'payment' => PaymentOperation::Payment,
+            'oneclickPayment' => PaymentOperation::OneClick,
+        };
     }
 }

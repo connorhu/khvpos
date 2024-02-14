@@ -34,8 +34,17 @@ enum CustomerLoginAuth implements StringValueEnum
         };
     }
 
-    public static function initWithString(string $value): StringValueEnum
+    public static function initWithString(string $value): self
     {
-        // TODO: Implement initWithString() method.
+        return match ($value) {
+            'guest' => CustomerLoginAuth::Guest,
+            'account' => CustomerLoginAuth::Account,
+            'federated' => CustomerLoginAuth::Federated,
+            'issuer' => CustomerLoginAuth::Issuer,
+            'thirdparty' => CustomerLoginAuth::ThirdParty,
+            'fido' => CustomerLoginAuth::Fido,
+            'fido_signed' => CustomerLoginAuth::SignedFido,
+            'api' => CustomerLoginAuth::Api,
+        };
     }
 }
