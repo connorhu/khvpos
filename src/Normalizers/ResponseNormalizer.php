@@ -70,7 +70,7 @@ class ResponseNormalizer implements DenormalizerInterface
         };
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = [])
+    public function denormalize(mixed $data, string $type, string $format = null, array $context = []): object
     {
         $signature = $data['signature'] ?? null;
         $data = NormalizerResultOrderingHelper::orderArray($data, self::responseKeyOrderWithClass($type));

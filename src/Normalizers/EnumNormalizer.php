@@ -15,7 +15,7 @@ class EnumNormalizer implements NormalizerInterface, DenormalizerInterface
      * @param array $context
      * @return string
      */
-    public function normalize(mixed $object, string $format = null, array $context = [])
+    public function normalize(mixed $object, string $format = null, array $context = []): string
     {
         return $object->stringValue();
     }

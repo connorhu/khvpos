@@ -20,7 +20,7 @@ class AddressNormalizer implements NormalizerInterface
      * @param array $context
      * @return array
      */
-    public function normalize(mixed $object, string $format = null, array $context = [])
+    public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         $normalized = $this->objectNormalizer->normalize($object, $format, [
             AbstractObjectNormalizer::IGNORED_ATTRIBUTES => [

@@ -127,7 +127,7 @@ class RequestNormalizer implements NormalizerInterface
         throw new \UnhandledMatchError('Unknown request type: '. $object::class);
     }
 
-    public function normalize(mixed $object, string $format = null, array $context = [])
+    public function normalize(mixed $object, string $format = null, array $context = []): array
     {
         $context = $this->getContextWithObject($object);
         $normalized = $this->objectNormalizer->normalize($object, $format, $context);
