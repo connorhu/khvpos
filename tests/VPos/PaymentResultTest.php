@@ -35,4 +35,19 @@ email@client.tld';
         $this->assertSame(0, $paymentResult->getResponseCode());
         $this->assertSame('email@client.tld', $paymentResult->getEmailAddress());
     }
+
+    public function testFailedResponse()
+    {
+        $response = 'NAK
+59
+ELUTASITVA, ERVENYTELEN ADAT
+00000000';
+
+        $paymentResult = PaymentResult::initWithResponseString($response);
+
+        $this->assertSame('00000000', $paymentResult->getBankLicenceNumber());
+        $this->assertSame(TransactionInterface::TRANSACTION_STATUS_FAILED, $paymentResult->getTransactionStatus());
+        $this->assertSame(59, $paymentResult->getResponseCode());
+        $this->assertSame(null, $paymentResult->getEmailAddress());
+    }
 }
