@@ -1,6 +1,6 @@
 <?php
 
-namespace KHTools\Tests\VPos\Normalizers;
+namespace KHTools\Tests\Normalizers;
 
 use KHTools\VPos\Entities\Enums\HttpMethod;
 use KHTools\VPos\Normalizers\EnumNormalizer;
@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -23,7 +24,8 @@ class ResponseNormalizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader());
+        $loader = class_exists(AttributeLoader::class) ? new AttributeLoader() : new AnnotationLoader();
+        $classMetadataFactory = new ClassMetadataFactory($loader);
         $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
         $extractor = new PropertyInfoExtractor([], [new ReflectionExtractor()]);
 

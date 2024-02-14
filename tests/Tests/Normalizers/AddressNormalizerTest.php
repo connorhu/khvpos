@@ -9,6 +9,7 @@ use KHTools\VPos\Normalizers\EnumNormalizer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
+use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -21,7 +22,8 @@ class AddressNormalizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader());
+        $loader = class_exists(AttributeLoader::class) ? new AttributeLoader() : new AnnotationLoader();
+        $classMetadataFactory = new ClassMetadataFactory($loader);
         $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
 
         $dateTimeNormalizer = new DateTimeNormalizer();
