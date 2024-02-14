@@ -29,6 +29,8 @@
         }
     },
     "scripts": {
-        "test": "phpunit --colors=always"
+        "test": "phpunit --colors=always",
+        "coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html=tests/coverage",
+        "coverage:clover": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-clover=coverage.xml"
     }
 }
