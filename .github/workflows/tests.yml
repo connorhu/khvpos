@@ -1,6 +1,23 @@
 name: Tests
 
-on: ["push", "pull_request"]
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .github/workflows/tests.yml
+      - composer.*
+      - src/**
+      - tests/**
+
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/tests.yml
+      - composer.*
+      - src/**
+      - tests/**
 
 jobs:
   build:
