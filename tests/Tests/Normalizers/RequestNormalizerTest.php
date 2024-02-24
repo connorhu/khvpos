@@ -192,7 +192,7 @@ class RequestNormalizerTest extends TestCase
 
         $customer = new Customer();
         $customer->account = new CustomerAccount();
-        $customer->account->changedAt = new \DateTime('2023-01-01T04:05:06+00:00');
+        $customer->account->changedAt = new \DateTimeImmutable('2023-01-01T04:05:06+00:00');
         $customer->login = new CustomerLogin();
         $customer->login->auth = CustomerLoginAuth::Api;
         $customer->name = 'name of the customer';
