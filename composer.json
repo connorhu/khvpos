@@ -33,6 +33,9 @@
         "test": "phpunit --colors=always",
         "coverage": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-html=tests/coverage",
         "coverage:clover": "XDEBUG_MODE=coverage phpunit --colors=always --coverage-clover=coverage.xml",
-        "phpstan": "phpstan analyse --memory-limit 1G"
+        "phpstan": "phpstan analyse --memory-limit=1G",
+        "analyze": [
+            "@phpstan"
+        ]
     }
 }
