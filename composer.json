@@ -16,7 +16,8 @@
         "symfony/var-dumper": "^6.4 || ^7.0",
         "nyholm/psr7": "^1.3",
         "symfony/dependency-injection": "^6.4 || ^7.0",
-        "phpstan/phpstan": "^1.10"
+        "phpstan/phpstan": "^1.10",
+        "symfony/dotenv": "^7.0"
     },
     "autoload": {
         "psr-4": {

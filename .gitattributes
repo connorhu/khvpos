@@ -4,3 +4,4 @@ tests/              export-ignore
 .gitignore          export-ignore
 phpstan.neon.dist   export-ignore
 phpunit.xml.dist    export-ignore
+examples/           export-ignore
