@@ -35,6 +35,10 @@
         "phpstan": "phpstan analyse --memory-limit=1G",
         "analyze": [
             "@phpstan"
+        ],
+        "pre-commit": [
+            "@test",
+            "@analyze"
         ]
     }
 }
