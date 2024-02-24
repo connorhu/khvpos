@@ -3,7 +3,6 @@ parameters:
     phpVersion: 80200
     paths:
         - src
-        - tests
 
     ignoreErrors:
         -
