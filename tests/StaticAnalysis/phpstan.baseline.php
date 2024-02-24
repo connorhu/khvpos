@@ -4,72 +4,67 @@ $ignoreErrors = [];
 $ignoreErrors[] = [
 	'message' => '#^Property KHTools\\\\VPos\\\\Models\\\\Browser\\:\\:\\$vars type has no value type specified in iterable type array\\.$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Browser.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\VPos\\\\Models\\\\CartItem\\:\\:getRawAmount\\(\\) should return int but returns int\\|null\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/CartItem.php',
+	'path' => __DIR__ . '/../../src/Models/Browser.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/Currency.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/Currency.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Method KHTools\\\\VPos\\\\Models\\\\Enums\\\\Currency\\:\\:stringValues\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/Currency.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/Currency.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/CustomerLoginAuth.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/CustomerLoginAuth.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/DeliveryMode.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/DeliveryMode.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/HttpMethod.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/HttpMethod.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/Language.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/Language.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/OrderAvailability.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/OrderAvailability.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/OrderDelivery.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/OrderDelivery.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/OrderType.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/OrderType.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/PaymentMethod.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/PaymentMethod.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Match expression does not handle remaining value\\: string$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Enums/PaymentOperation.php',
+	'path' => __DIR__ . '/../../src/Models/Enums/PaymentOperation.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Property KHTools\\\\VPos\\\\Models\\\\Order\\:\\:\\$giftcards type has no value type specified in iterable type array\\.$#',
 	'count' => 1,
-	'path' => __DIR__ . '/../../src/Entities/Order.php',
+	'path' => __DIR__ . '/../../src/Models/Order.php',
 ];
 $ignoreErrors[] = [
 	'message' => '#^Cannot access offset non\\-falsy\\-string on array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null\\.$#',
