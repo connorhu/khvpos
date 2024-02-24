@@ -13,3 +13,5 @@ parameters:
                 - tests/Tests/Normalizers/RequestNormalizerTest.php
                 - tests/Tests/Normalizers/ResponseNormalizerTest.php
 
+includes:
+    - tests/StaticAnalysis/phpstan.baseline.php
