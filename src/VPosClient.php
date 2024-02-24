@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\Service\Attribute\SubscribedService;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use Symfony\Contracts\Service\ServiceSubscriberTrait;
 
@@ -37,19 +37,6 @@ class VPosClient implements ServiceSubscriberInterface
         private readonly bool $isTest = false,
     )
     {
-    }
-
-    public static function getSubscribedServices(): array
-    {
-        return [
-            ClientInterface::class => ClientInterface::class,
-            RequestFactoryInterface::class => RequestFactoryInterface::class,
-            StreamFactoryInterface::class => StreamFactoryInterface::class,
-            SignatureProviderInterface::class => SignatureProviderInterface::class,
-            SerializerInterface::class => SerializerInterface::class,
-            NormalizerInterface::class => NormalizerInterface::class,
-            ValidatorInterface::class => ValidatorInterface::class,
-        ];
     }
 
     protected function getEndpointBase(): string
@@ -145,38 +132,45 @@ class VPosClient implements ServiceSubscriberInterface
         return $this->getDenormalizer()->denormalize($responseArray, $responseClass, 'array');
     }
 
+    #[SubscribedService]
     private function getSignatureProvider(): SignatureProviderInterface
     {
-        return $this->container->get(SignatureProviderInterface::class);
+        return $this->container->get(__METHOD__);
     }
 
+    #[SubscribedService]
     private function getNormalizer(): NormalizerInterface
     {
-        return $this->container->get(NormalizerInterface::class);
+        return $this->container->get(__METHOD__);
     }
 
+    #[SubscribedService]
     private function getDenormalizer(): DenormalizerInterface
     {
-        return $this->container->get(NormalizerInterface::class);
+        return $this->container->get(__METHOD__);
     }
 
+    #[SubscribedService]
     private function getSerializer(): SerializerInterface
     {
-        return $this->container->get(SerializerInterface::class);
+        return $this->container->get(__METHOD__);
     }
 
+    #[SubscribedService]
     private function getHttpClient(): ClientInterface
     {
-        return $this->container->get(ClientInterface::class);
+        return $this->container->get(__METHOD__);
     }
 
+    #[SubscribedService]
     private function getRequestFactory(): RequestFactoryInterface
     {
-        return $this->container->get(RequestFactoryInterface::class);
+        return $this->container->get(__METHOD__);
     }
 
+    #[SubscribedService]
     private function getStreamFactory(): StreamFactoryInterface
     {
-        return $this->container->get(StreamFactoryInterface::class);
+        return $this->container->get(__METHOD__);
     }
 }
