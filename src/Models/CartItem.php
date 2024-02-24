@@ -62,7 +62,10 @@ class CartItem
         return $this->amount / 100;
     }
 
-    public function getRawAmount(): int
+    /**
+     * @return int|null
+     */
+    public function getRawAmount(): ?int
     {
         return $this->amount;
     }
