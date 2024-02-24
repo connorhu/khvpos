@@ -43,7 +43,7 @@ jobs:
 
       - uses: "ramsey/composer-install@v2"
 
-      - run: composer run coverage:clover
+      - run: phpunit --colors=always --coverage-clover=coverage.xml
 
       - name: Upload to Codecov
         uses: codecov/codecov-action@v3
