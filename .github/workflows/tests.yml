@@ -3,7 +3,7 @@ name: Tests
 on:
   pull_request:
     branches:
-      - master
+      - 2.x
     paths:
       - .github/workflows/tests.yml
       - composer.*
@@ -12,7 +12,7 @@ on:
 
   push:
     branches:
-      - master
+      - 2.x
     paths:
       - .github/workflows/tests.yml
       - composer.*
