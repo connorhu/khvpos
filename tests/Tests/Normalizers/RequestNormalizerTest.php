@@ -2,17 +2,17 @@
 
 namespace KHTools\Tests\Normalizers;
 
-use KHTools\VPos\Entities\CartItem;
-use KHTools\VPos\Entities\Customer;
-use KHTools\VPos\Entities\CustomerAccount;
-use KHTools\VPos\Entities\CustomerLogin;
-use KHTools\VPos\Entities\Enums\Currency;
-use KHTools\VPos\Entities\Enums\CustomerLoginAuth;
-use KHTools\VPos\Entities\Enums\Language;
-use KHTools\VPos\Entities\Enums\PaymentMethod;
-use KHTools\VPos\Entities\Enums\PaymentOperation;
-use KHTools\VPos\Entities\Enums\HttpMethod;
-use KHTools\VPos\Entities\Merchant;
+use KHTools\VPos\Models\CartItem;
+use KHTools\VPos\Models\Customer;
+use KHTools\VPos\Models\CustomerAccount;
+use KHTools\VPos\Models\CustomerLogin;
+use KHTools\VPos\Models\Enums\Currency;
+use KHTools\VPos\Models\Enums\CustomerLoginAuth;
+use KHTools\VPos\Models\Enums\Language;
+use KHTools\VPos\Models\Enums\PaymentMethod;
+use KHTools\VPos\Models\Enums\PaymentOperation;
+use KHTools\VPos\Models\Enums\HttpMethod;
+use KHTools\VPos\Models\Merchant;
 use KHTools\VPos\Normalizers\CartItemNormalizer;
 use KHTools\VPos\Normalizers\EnumNormalizer;
 use KHTools\VPos\Normalizers\RequestNormalizer;

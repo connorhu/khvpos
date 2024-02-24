@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos\Requests;
 
-use KHTools\VPos\Entities\Merchant;
+use KHTools\VPos\Models\Merchant;
 
 interface RequestInterface
 {

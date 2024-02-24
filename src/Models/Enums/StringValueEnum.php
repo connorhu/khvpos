@@ -1,6 +1,6 @@
 <?php
 
-namespace KHTools\VPos\Entities\Enums;
+namespace KHTools\VPos\Models\Enums;
 
 interface StringValueEnum
 {

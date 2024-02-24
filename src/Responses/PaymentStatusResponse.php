@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos\Responses;
 
-use KHTools\VPos\Entities\Authenticate;
+use KHTools\VPos\Models\Authenticate;
 use KHTools\VPos\Responses\Traits\CommonResponseTrait;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 

@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos\Normalizers;
 
-use KHTools\VPos\Entities\CartItem;
+use KHTools\VPos\Models\CartItem;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;

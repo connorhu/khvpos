@@ -1,6 +1,6 @@
 <?php
 
-namespace KHTools\VPos\Entities;
+namespace KHTools\VPos\Models;
 
 class Authenticate
 {

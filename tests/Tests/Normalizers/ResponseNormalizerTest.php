@@ -2,7 +2,7 @@
 
 namespace KHTools\Tests\Normalizers;
 
-use KHTools\VPos\Entities\Enums\HttpMethod;
+use KHTools\VPos\Models\Enums\HttpMethod;
 use KHTools\VPos\Normalizers\EnumNormalizer;
 use KHTools\VPos\Normalizers\ResponseNormalizer;
 use KHTools\VPos\Responses\PaymentStatusResponse;
@@ -63,7 +63,7 @@ class ResponseNormalizerTest extends TestCase
                         'threeDSServerTransID' => 'eeddda80-6ca7-4b22-9d6a-eb8e84791ec9',
                         'acsReferenceNumber' => '3DS_LOA_ACS_201_13579',
                         'acsTransID' => '7f3296a8-08c4-4afb-a3e2-8ce31b2e9069',
-                        'acsSignedContent' => 'base64-encoded-acs-signed-content'
+                        'acsSignedContent' => 'base64-encoded-acs-signed-content',
                     ],
                 ],
                 'fingerprint' => [
@@ -95,7 +95,7 @@ class ResponseNormalizerTest extends TestCase
         $this->assertSame('https://example.com/challenge-endpoint', $response->getAuthenticateAction()->browserChallenge->url);
         $this->assertSame(HttpMethod::Post, $response->getAuthenticateAction()->browserChallenge->method);
         $this->assertSame([
-            'key1' => 'value1'
+            'key1' => 'value1',
         ], $response->getAuthenticateAction()->browserChallenge->vars);
 
         $this->assertSame('eeddda80-6ca7-4b22-9d6a-eb8e84791ec9', $response->getAuthenticateAction()->sdkChallenge->threeDSServerTransID);
@@ -103,5 +103,4 @@ class ResponseNormalizerTest extends TestCase
         $this->assertSame('7f3296a8-08c4-4afb-a3e2-8ce31b2e9069', $response->getAuthenticateAction()->sdkChallenge->acsTransID);
         $this->assertSame('base64-encoded-acs-signed-content', $response->getAuthenticateAction()->sdkChallenge->acsSignedContent);
     }
-
 }

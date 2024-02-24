@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos\Requests;
 
-use KHTools\VPos\Entities\Merchant;
+use KHTools\VPos\Models\Merchant;
 use KHTools\VPos\Requests\Traits\MerchantTrait;
 use KHTools\VPos\Requests\Traits\PaymentIdTrait;
 use KHTools\VPos\Responses\PaymentInitResponse;

@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace KHTools\VPos\Entities;
+namespace KHTools\VPos\Models;
 
-use KHTools\VPos\Entities\Enums\DeliveryMode;
-use KHTools\VPos\Entities\Enums\OrderAvailability;
-use KHTools\VPos\Entities\Enums\OrderDelivery;
-use KHTools\VPos\Entities\Enums\OrderType;
+use KHTools\VPos\Models\Enums\DeliveryMode;
+use KHTools\VPos\Models\Enums\OrderAvailability;
+use KHTools\VPos\Models\Enums\OrderDelivery;
+use KHTools\VPos\Models\Enums\OrderType;
 
 class Order
 {

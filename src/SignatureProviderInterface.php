@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos;
 
-use KHTools\VPos\Entities\Merchant;
+use KHTools\VPos\Models\Merchant;
 
 interface SignatureProviderInterface
 {

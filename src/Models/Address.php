@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace KHTools\VPos\Entities;
+namespace KHTools\VPos\Models;
 
 class Address
 {

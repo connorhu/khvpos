@@ -2,7 +2,7 @@
 
 namespace KHTools\Tests\Normalizers;
 
-use KHTools\VPos\Entities\Address;
+use KHTools\VPos\Models\Address;
 use KHTools\VPos\Normalizers\AddressNormalizer;
 use KHTools\VPos\Normalizers\CartItemNormalizer;
 use KHTools\VPos\Normalizers\EnumNormalizer;

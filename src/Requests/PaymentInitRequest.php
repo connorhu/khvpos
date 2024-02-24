@@ -2,14 +2,14 @@
 
 namespace KHTools\VPos\Requests;
 
-use KHTools\VPos\Entities\CartItem;
-use KHTools\VPos\Entities\Customer;
-use KHTools\VPos\Entities\Enums\Currency;
-use KHTools\VPos\Entities\Enums\Language;
-use KHTools\VPos\Entities\Enums\PaymentMethod;
-use KHTools\VPos\Entities\Enums\PaymentOperation;
-use KHTools\VPos\Entities\Enums\HttpMethod;
-use KHTools\VPos\Entities\Order;
+use KHTools\VPos\Models\CartItem;
+use KHTools\VPos\Models\Customer;
+use KHTools\VPos\Models\Enums\Currency;
+use KHTools\VPos\Models\Enums\Language;
+use KHTools\VPos\Models\Enums\PaymentMethod;
+use KHTools\VPos\Models\Enums\PaymentOperation;
+use KHTools\VPos\Models\Enums\HttpMethod;
+use KHTools\VPos\Models\Order;
 use KHTools\VPos\Requests\Traits\MerchantTrait;
 use KHTools\VPos\Responses\PaymentInitResponse;
 use Symfony\Component\Serializer\Annotation\Ignore;

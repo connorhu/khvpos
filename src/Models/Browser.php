@@ -1,8 +1,8 @@
 <?php
 
-namespace KHTools\VPos\Entities;
+namespace KHTools\VPos\Models;
 
-use KHTools\VPos\Entities\Enums\HttpMethod;
+use KHTools\VPos\Models\Enums\HttpMethod;
 
 class Browser
 {

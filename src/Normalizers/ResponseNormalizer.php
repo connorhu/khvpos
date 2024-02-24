@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos\Normalizers;
 
-use KHTools\VPos\Entities\Authenticate;
+use KHTools\VPos\Models\Authenticate;
 use KHTools\VPos\Exceptions\VerificationFailedException;
 use KHTools\VPos\Responses\EchoResponse;
 use KHTools\VPos\Responses\PaymentCloseResponse;

@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos;
 
-use KHTools\VPos\Entities\Merchant;
+use KHTools\VPos\Models\Merchant;
 use KHTools\VPos\Exceptions\SSLErrorException;
 use KHTools\VPos\Keys\PrivateKey;
 use KHTools\VPos\Keys\PublicKey;

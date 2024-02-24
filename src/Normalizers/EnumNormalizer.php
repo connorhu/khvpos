@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos\Normalizers;
 
-use KHTools\VPos\Entities\Enums\StringValueEnum;
+use KHTools\VPos\Models\Enums\StringValueEnum;
 use KHTools\VPos\Responses\ResponseInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;

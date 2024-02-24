@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos\Normalizers;
 
-use KHTools\VPos\Entities\Merchant;
+use KHTools\VPos\Models\Merchant;
 use KHTools\VPos\Requests\EchoRequest;
 use KHTools\VPos\Requests\PaymentCloseRequest;
 use KHTools\VPos\Requests\PaymentInitRequest;

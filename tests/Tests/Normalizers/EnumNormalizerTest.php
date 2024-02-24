@@ -2,16 +2,16 @@
 
 namespace KHTools\Tests\Normalizers;
 
-use KHTools\VPos\Entities\Enums\Currency;
-use KHTools\VPos\Entities\Enums\CustomerLoginAuth;
-use KHTools\VPos\Entities\Enums\DeliveryMode;
-use KHTools\VPos\Entities\Enums\HttpMethod;
-use KHTools\VPos\Entities\Enums\Language;
-use KHTools\VPos\Entities\Enums\OrderAvailability;
-use KHTools\VPos\Entities\Enums\OrderDelivery;
-use KHTools\VPos\Entities\Enums\OrderType;
-use KHTools\VPos\Entities\Enums\PaymentMethod;
-use KHTools\VPos\Entities\Enums\PaymentOperation;
+use KHTools\VPos\Models\Enums\Currency;
+use KHTools\VPos\Models\Enums\CustomerLoginAuth;
+use KHTools\VPos\Models\Enums\DeliveryMode;
+use KHTools\VPos\Models\Enums\HttpMethod;
+use KHTools\VPos\Models\Enums\Language;
+use KHTools\VPos\Models\Enums\OrderAvailability;
+use KHTools\VPos\Models\Enums\OrderDelivery;
+use KHTools\VPos\Models\Enums\OrderType;
+use KHTools\VPos\Models\Enums\PaymentMethod;
+use KHTools\VPos\Models\Enums\PaymentOperation;
 use KHTools\VPos\Normalizers\EnumNormalizer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;

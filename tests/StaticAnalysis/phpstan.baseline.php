@@ -2,12 +2,12 @@
 
 $ignoreErrors = [];
 $ignoreErrors[] = [
-	'message' => '#^Property KHTools\\\\VPos\\\\Entities\\\\Browser\\:\\:\\$vars type has no value type specified in iterable type array\\.$#',
+	'message' => '#^Property KHTools\\\\VPos\\\\Models\\\\Browser\\:\\:\\$vars type has no value type specified in iterable type array\\.$#',
 	'count' => 1,
 	'path' => __DIR__ . '/../../src/Entities/Browser.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\VPos\\\\Entities\\\\CartItem\\:\\:getRawAmount\\(\\) should return int but returns int\\|null\\.$#',
+	'message' => '#^Method KHTools\\\\VPos\\\\Models\\\\CartItem\\:\\:getRawAmount\\(\\) should return int but returns int\\|null\\.$#',
 	'count' => 1,
 	'path' => __DIR__ . '/../../src/Entities/CartItem.php',
 ];
@@ -17,7 +17,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/../../src/Entities/Enums/Currency.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\VPos\\\\Entities\\\\Enums\\\\Currency\\:\\:stringValues\\(\\) return type has no value type specified in iterable type array\\.$#',
+	'message' => '#^Method KHTools\\\\VPos\\\\Models\\\\Enums\\\\Currency\\:\\:stringValues\\(\\) return type has no value type specified in iterable type array\\.$#',
 	'count' => 1,
 	'path' => __DIR__ . '/../../src/Entities/Enums/Currency.php',
 ];
@@ -67,7 +67,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/../../src/Entities/Enums/PaymentOperation.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Property KHTools\\\\VPos\\\\Entities\\\\Order\\:\\:\\$giftcards type has no value type specified in iterable type array\\.$#',
+	'message' => '#^Property KHTools\\\\VPos\\\\Models\\\\Order\\:\\:\\$giftcards type has no value type specified in iterable type array\\.$#',
 	'count' => 1,
 	'path' => __DIR__ . '/../../src/Entities/Order.php',
 ];

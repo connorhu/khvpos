@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace KHTools\VPos\Entities\Enums;
+namespace KHTools\VPos\Models\Enums;
 
 enum OrderDelivery implements StringValueEnum
 {

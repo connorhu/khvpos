@@ -2,7 +2,7 @@
 
 namespace KHTools\VPos\Requests\Traits;
 
-use KHTools\VPos\Entities\Merchant;
+use KHTools\VPos\Models\Merchant;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 trait MerchantTrait

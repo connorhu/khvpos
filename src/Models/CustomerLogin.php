@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace KHTools\VPos\Entities;
+namespace KHTools\VPos\Models;
 
-use KHTools\VPos\Entities\Enums\CustomerLoginAuth;
+use KHTools\VPos\Models\Enums\CustomerLoginAuth;
 
 class CustomerLogin
 {
