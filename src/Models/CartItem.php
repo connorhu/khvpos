@@ -27,9 +27,11 @@ class CartItem
      *
      * @param string|null $name
      */
-    public function setName(?string $name): void
+    public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -47,9 +49,11 @@ class CartItem
      *
      * @param int|null $quantity
      */
-    public function setQuantity(?int $quantity): void
+    public function setQuantity(?int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
     }
 
     /**
@@ -75,9 +79,11 @@ class CartItem
      *
      * @param float|null $amount
      */
-    public function setAmount(?float $amount): void
+    public function setAmount(?float $amount): self
     {
         $this->amount = (int) round($amount * 100);
+
+        return $this;
     }
 
     /**
@@ -95,8 +101,10 @@ class CartItem
      *
      * @param string|null $description
      */
-    public function setDescription(?string $description): void
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
     }
 }

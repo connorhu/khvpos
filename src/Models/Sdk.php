@@ -11,5 +11,4 @@ class Sdk
     public ?string $directoryServerID = null;
     public ?string $schemeId = null;
     public ?string $messageVersion = null;
-
 }
