@@ -32,4 +32,4 @@
   [phpstan status]: https://github.com/connorhu/khvpos/actions/workflows/static-analysis.yml
   [master coverage image]: https://codecov.io/gh/connorhu/khvpos/branch/master/graph/badge.svg
   [master coverage]: https://codecov.io/gh/connorhu/khvpos/branch/master
-  [echo example]: https://github.com/connorhu/khvpos/blob/examples/01-echo-request.php
+  [echo example]: https://github.com/connorhu/khvpos/blob/2.x/examples/01-echo-request.php
