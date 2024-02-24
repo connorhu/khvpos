@@ -4,13 +4,5 @@ parameters:
     paths:
         - src
 
-    ignoreErrors:
-        -
-            message: '#Instantiated class Symfony\\Component\\Serializer\\Mapping\\Loader\\AnnotationLoader not found.#'
-            paths:
-                - tests/Tests/Normalizers/AddressNormalizerTest.php
-                - tests/Tests/Normalizers/RequestNormalizerTest.php
-                - tests/Tests/Normalizers/ResponseNormalizerTest.php
-
 includes:
     - tests/StaticAnalysis/phpstan.baseline.php

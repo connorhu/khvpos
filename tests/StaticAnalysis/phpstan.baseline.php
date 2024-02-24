@@ -402,7 +402,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/../../src/VPosClient.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^PHPDoc tag @return with type TResponse is not subtype of native type KHTools\\\\VPos\\\\Responses\\\\ResponseInterface\\.$#',
+	'message' => '#^PHPDoc tag @return with type Tresponse is not subtype of native type KHTools\\\\VPos\\\\Responses\\\\ResponseInterface\\.$#',
 	'count' => 1,
 	'path' => __DIR__ . '/../../src/VPosClient.php',
 ];
@@ -440,96 +440,6 @@ $ignoreErrors[] = [
 	'message' => '#^Property KHTools\\\\VPos\\\\VPosClient\\:\\:\\$httpClient is unused\\.$#',
 	'count' => 1,
 	'path' => __DIR__ . '/../../src/VPosClient.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\AddressNormalizerTest\\:\\:testPaymentInit\\(\\) has no return type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/AddressNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\AddressNormalizerTest\\:\\:testPaymentInit\\(\\) has parameter \\$expected with no value type specified in iterable type array\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/AddressNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$loader of class Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Factory\\\\ClassMetadataFactory constructor expects Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Loader\\\\LoaderInterface, Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Loader\\\\AnnotationLoader\\|Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Loader\\\\AttributeLoader given\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/AddressNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Property KHTools\\\\Tests\\\\Normalizers\\\\EnumNormalizerTest\\:\\:\\$normalizer has no type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/EnumNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Cannot access offset \'dttm\' on array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null\\.$#',
-	'count' => 3,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Cannot access offset \\(int\\|string\\) on array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\RequestNormalizerTest\\:\\:testPaymentCloseRequest\\(\\) has no return type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\RequestNormalizerTest\\:\\:testPaymentCloseRequest\\(\\) has parameter \\$expected with no value type specified in iterable type array\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\RequestNormalizerTest\\:\\:testPaymentInit\\(\\) has no return type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\RequestNormalizerTest\\:\\:testPaymentInit\\(\\) has parameter \\$expected with no value type specified in iterable type array\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\RequestNormalizerTest\\:\\:testPaymentRefundRequest\\(\\) has no return type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\RequestNormalizerTest\\:\\:testPaymentRefundRequest\\(\\) has parameter \\$expected with no value type specified in iterable type array\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\RequestNormalizerTest\\:\\:testSimplePaymentRequests\\(\\) has no return type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\RequestNormalizerTest\\:\\:testSimplePaymentRequests\\(\\) has parameter \\$expected with no value type specified in iterable type array\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$loader of class Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Factory\\\\ClassMetadataFactory constructor expects Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Loader\\\\LoaderInterface, Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Loader\\\\AnnotationLoader\\|Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Loader\\\\AttributeLoader given\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/RequestNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Call to an undefined method Symfony\\\\Component\\\\Serializer\\\\Normalizer\\\\NormalizerInterface\\:\\:denormalize\\(\\)\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/ResponseNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Method KHTools\\\\Tests\\\\Normalizers\\\\ResponseNormalizerTest\\:\\:testPaymentStatusResponse\\(\\) has no return type specified\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/ResponseNormalizerTest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$loader of class Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Factory\\\\ClassMetadataFactory constructor expects Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Loader\\\\LoaderInterface, Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Loader\\\\AnnotationLoader\\|Symfony\\\\Component\\\\Serializer\\\\Mapping\\\\Loader\\\\AttributeLoader given\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../Tests/Normalizers/ResponseNormalizerTest.php',
 ];
 
 return ['parameters' => ['ignoreErrors' => $ignoreErrors]];
