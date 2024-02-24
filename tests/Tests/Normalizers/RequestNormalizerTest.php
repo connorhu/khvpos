@@ -22,6 +22,7 @@ use KHTools\VPos\Requests\PaymentProcessRequest;
 use KHTools\VPos\Requests\PaymentRefundRequest;
 use KHTools\VPos\Requests\PaymentReverseRequest;
 use KHTools\VPos\Requests\PaymentStatusRequest;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
@@ -57,9 +58,7 @@ class RequestNormalizerTest extends TestCase
         ]);
     }
 
-    /**
-     * @dataProvider paymentInitDataProvider
-     */
+    #[DataProvider(methodName: 'paymentInitDataProvider')]
     public function testPaymentInit(PaymentInitRequest $paymentInit, array $expected)
     {
         $result = $this->normalizer->normalize($paymentInit);
@@ -69,7 +68,7 @@ class RequestNormalizerTest extends TestCase
         }
     }
 
-    public function paymentInitDataProvider(): \Generator
+    public static function paymentInitDataProvider(): \Generator
     {
         $paymentInit = new PaymentInitRequest();
         $merchant = new Merchant();
@@ -211,9 +210,7 @@ class RequestNormalizerTest extends TestCase
         ]];
     }
 
-    /**
-     * @dataProvider simplePaymentRequestsDataProvider
-     */
+    #[DataProvider(methodName: 'simplePaymentRequestsDataProvider')]
     public function testSimplePaymentRequests(PaymentStatusRequest|PaymentProcessRequest|PaymentReverseRequest $request, array $expected)
     {
         $result = $this->normalizer->normalize($request);
@@ -224,7 +221,7 @@ class RequestNormalizerTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function simplePaymentRequestsDataProvider(): \Generator
+    public static function simplePaymentRequestsDataProvider(): \Generator
     {
         $request = new PaymentStatusRequest();
         yield [$request, []];
@@ -254,9 +251,7 @@ class RequestNormalizerTest extends TestCase
         ]];
     }
 
-    /**
-     * @dataProvider paymentCloseRequestDataProvider
-     */
+    #[DataProvider(methodName: 'paymentCloseRequestDataProvider')]
     public function testPaymentCloseRequest(PaymentCloseRequest $request, array $expected)
     {
         $result = $this->normalizer->normalize($request);
@@ -267,7 +262,7 @@ class RequestNormalizerTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function paymentCloseRequestDataProvider(): \Generator
+    public static function paymentCloseRequestDataProvider(): \Generator
     {
         $request = new PaymentCloseRequest();
         yield [$request, []];
@@ -281,9 +276,7 @@ class RequestNormalizerTest extends TestCase
         ]];
     }
 
-    /**
-     * @dataProvider paymentRefundRequestDataProvider
-     */
+    #[DataProvider(methodName: 'paymentRefundRequestDataProvider')]
     public function testPaymentRefundRequest(PaymentRefundRequest $request, array $expected)
     {
         $result = $this->normalizer->normalize($request);
@@ -293,7 +286,7 @@ class RequestNormalizerTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function paymentRefundRequestDataProvider(): \Generator
+    public static function paymentRefundRequestDataProvider(): \Generator
     {
         $request = new PaymentRefundRequest();
         yield [$request, []];

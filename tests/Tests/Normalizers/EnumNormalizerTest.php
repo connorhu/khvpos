@@ -13,20 +13,19 @@ use KHTools\VPos\Entities\Enums\OrderType;
 use KHTools\VPos\Entities\Enums\PaymentMethod;
 use KHTools\VPos\Entities\Enums\PaymentOperation;
 use KHTools\VPos\Normalizers\EnumNormalizer;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class EnumNormalizerTest extends TestCase
 {
-    private $normalizer;
+    private EnumNormalizer $normalizer;
 
     protected function setUp(): void
     {
         $this->normalizer = new EnumNormalizer();
     }
 
-    /**
-     * @dataProvider languageDenormalizeDataProvider
-     */
+    #[DataProvider(methodName: 'languageDenormalizeDataProvider')]
     public function testLanguageDenormalize(string $type, string $language, string $expectedStringValue): void
     {
         $enum = $this->normalizer->denormalize($language, $type);

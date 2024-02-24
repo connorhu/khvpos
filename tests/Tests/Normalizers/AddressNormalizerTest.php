@@ -6,6 +6,7 @@ use KHTools\VPos\Entities\Address;
 use KHTools\VPos\Normalizers\AddressNormalizer;
 use KHTools\VPos\Normalizers\CartItemNormalizer;
 use KHTools\VPos\Normalizers\EnumNormalizer;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
@@ -38,9 +39,7 @@ class AddressNormalizerTest extends TestCase
         ]);
     }
 
-    /**
-     * @dataProvider paymentInitDataProvider
-     */
+    #[DataProvider(methodName: 'paymentInitDataProvider')]
     public function testPaymentInit(Address $address, array $expected)
     {
         $result = $this->normalizer->normalize($address);
@@ -48,7 +47,7 @@ class AddressNormalizerTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function paymentInitDataProvider(): \Generator
+    public static function paymentInitDataProvider(): \Generator
     {
         $address = new Address();
         yield [$address, []];
