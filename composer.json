@@ -29,9 +29,9 @@
         }
     },
     "scripts": {
-        "test": "phpunit-10 --colors=always",
-        "coverage": "XDEBUG_MODE=coverage phpunit-10 --colors=always --coverage-html=tests/coverage",
-        "coverage:clover": "XDEBUG_MODE=coverage phpunit-10 --colors=always --coverage-clover=coverage.xml",
+        "test": "phpunit-11 --colors=always",
+        "coverage": "XDEBUG_MODE=coverage phpunit-11 --colors=always --coverage-html=tests/coverage",
+        "coverage:clover": "XDEBUG_MODE=coverage phpunit-11 --colors=always --coverage-clover=coverage.xml",
         "phpstan": "phpstan analyse --memory-limit=1G",
         "analyze": [
             "@phpstan"
