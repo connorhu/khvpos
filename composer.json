@@ -6,6 +6,7 @@
     "require": {
         "php": ">=8.2",
         "psr/http-client": "^1.0",
+        "ext-bcmath": "*",
         "ext-openssl": "*",
         "symfony/validator": "^6.4 || ^7.2",
         "symfony/serializer": "^6.4 || ^7.2",

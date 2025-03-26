@@ -139,7 +139,7 @@ class PaymentInitRequest implements RequestInterface
      */
     public function setTotalAmount(float $totalAmount): void
     {
-        $this->totalAmount = (int) round(($totalAmount * 100));
+        $this->totalAmount = (int) \bcmul(number_format($totalAmount,2,'.',''), '100');
     }
 
     /**
