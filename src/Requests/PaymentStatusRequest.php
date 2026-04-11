@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
+/** @implements RequestInterface<PaymentStatusResponse> */
 class PaymentStatusRequest implements RequestInterface
 {
     use MerchantTrait;

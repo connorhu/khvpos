@@ -42,8 +42,8 @@ class KHVPosGatewayFactory implements GatewayFactoryInterface
      * Returns the config as-is; this factory does not use GatewayFactorySupport
      * so config defaults are applied directly in create().
      *
-     * @param array<string, mixed> $config
-     * @return array<string, mixed>
+     * @param array<array-key, mixed> $config
+     * @return array<array-key, mixed>
      */
     public function createConfig(array $config = []): array
     {
@@ -51,22 +51,18 @@ class KHVPosGatewayFactory implements GatewayFactoryInterface
     }
 
     /**
-     * @param array{
-     *     merchant_id: string,
-     *     private_key_path: string,
-     *     private_key_passphrase?: string|null,
-     *     mips_public_key_path?: string|null,
-     *     is_test?: bool,
-     *     api_version?: string,
-     *     http_client?: ClientInterface,
-     * } $config
+     * Supported config keys: merchant_id (string, required), private_key_path (string, required),
+     * private_key_passphrase (string|null), mips_public_key_path (string|null),
+     * is_test (bool), api_version (string), http_client (ClientInterface).
+     *
+     * @param array<array-key, mixed> $config
      */
     public function create(array $config = []): GatewayInterface
     {
-        if (empty($config['merchant_id'])) {
+        if (!isset($config['merchant_id']) || $config['merchant_id'] === '') {
             throw new \InvalidArgumentException('The "merchant_id" config option is required.');
         }
-        if (empty($config['private_key_path'])) {
+        if (!isset($config['private_key_path']) || $config['private_key_path'] === '') {
             throw new \InvalidArgumentException('The "private_key_path" config option is required.');
         }
 
@@ -146,6 +142,7 @@ class KHVPosGatewayFactory implements GatewayFactoryInterface
         ];
 
         $container = new class($services) implements ContainerInterface {
+            /** @param array<string, mixed> $services */
             public function __construct(private readonly array $services) {}
             public function get(string $id): mixed { return $this->services[$id]; }
             public function has(string $id): bool { return isset($this->services[$id]); }

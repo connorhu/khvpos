@@ -4,6 +4,9 @@ namespace KHTools\VPos\Requests;
 
 use KHTools\VPos\Models\Merchant;
 
+/**
+ * @template TResponse of \KHTools\VPos\Responses\ResponseInterface
+ */
 interface RequestInterface
 {
     public function getRequestMethod(): string;
@@ -15,7 +18,7 @@ interface RequestInterface
     public function setMerchant(Merchant $merchant): void;
 
     /**
-     * @return class-string
+     * @return class-string<TResponse>
      */
     public function getResponseClass(): string;
 

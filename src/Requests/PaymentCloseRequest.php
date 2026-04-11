@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
+/** @implements RequestInterface<PaymentCloseResponse> */
 class PaymentCloseRequest implements RequestInterface
 {
     use MerchantTrait;

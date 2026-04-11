@@ -7,10 +7,12 @@ use KHTools\VPos\Normalizers\NormalizerResultOrderingHelper;
 use KHTools\VPos\Requests\Traits\MerchantTrait;
 use KHTools\VPos\Requests\Traits\PaymentIdTrait;
 use KHTools\VPos\Responses\PaymentInitResponse;
+use KHTools\VPos\Responses\ResponseInterface;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
+/** @implements RequestInterface<ResponseInterface> */
 class PaymentProcessRequest implements RequestInterface
 {
     use MerchantTrait;

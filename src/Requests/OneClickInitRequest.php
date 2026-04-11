@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
+/** @implements RequestInterface<OneClickInitResponse> */
 class OneClickInitRequest implements RequestInterface
 {
 	use MerchantTrait;

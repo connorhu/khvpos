@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
+/** @implements RequestInterface<OneClickEchoResponse> */
 class OneClickEchoRequest implements RequestInterface
 {
 	use MerchantTrait;

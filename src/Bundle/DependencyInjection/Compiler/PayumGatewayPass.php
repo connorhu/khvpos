@@ -25,7 +25,7 @@ class PayumGatewayPass implements CompilerPassInterface
         }
 
         $config = $container->getParameter('khvpos.client_provider.config');
-        if (empty($config['merchants'][0]['merchant_id'])) {
+        if (!isset($config['merchants'][0]['merchant_id']) || $config['merchants'][0]['merchant_id'] === '') {
             throw new \LogicException(
                 'PayumGatewayPass requires at least one merchant with a non-empty merchant_id in khvpos.client_provider.config. '
                 . 'Note: multi-merchant Payum integration is not yet supported; only the first merchant is used.'

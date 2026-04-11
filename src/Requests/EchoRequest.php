@@ -8,6 +8,7 @@ use KHTools\VPos\Responses\EchoResponse;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
+/** @implements RequestInterface<EchoResponse> */
 class EchoRequest implements RequestInterface
 {
     use MerchantTrait;
