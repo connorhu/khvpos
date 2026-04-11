@@ -24,7 +24,8 @@ class ResponseNormalizerTest extends TestCase
     {
         $objectNormalizer = $this->buildObjectNormalizer();
         $enumNormalizer = new EnumNormalizer();
-        $signatureProvider = new SignatureProvider([], './');
+        // Using test fixture key as MIPS key — only for denormalization tests that omit the 'signature' field
+        $signatureProvider = new SignatureProvider([], __DIR__ . '/../Fixtures/test1_public_key.pem');
 
         $this->normalizer = new Serializer([
             new ResponseNormalizer($signatureProvider, $objectNormalizer),
