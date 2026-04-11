@@ -4,16 +4,21 @@ namespace KHTools\VPos\Requests;
 
 use KHTools\VPos\Models\CartItem;
 use KHTools\VPos\Models\Customer;
+use KHTools\VPos\Models\Merchant;
 use KHTools\VPos\Models\Enums\Currency;
 use KHTools\VPos\Models\Enums\Language;
 use KHTools\VPos\Models\Enums\PaymentMethod;
 use KHTools\VPos\Models\Enums\PaymentOperation;
 use KHTools\VPos\Models\Enums\HttpMethod;
 use KHTools\VPos\Models\Order;
+use KHTools\VPos\Normalizers\NormalizerResultOrderingHelper;
 use KHTools\VPos\Requests\Traits\MerchantTrait;
 use KHTools\VPos\Responses\PaymentInitResponse;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 class PaymentInitRequest implements RequestInterface
 {
@@ -297,5 +302,41 @@ class PaymentInitRequest implements RequestInterface
     public function setMerchantData(?string $merchantData): void
     {
         $this->merchantData = $merchantData;
+    }
+
+    #[Ignore]
+    public function getNormalizationContext(): array
+    {
+        return [
+            AbstractNormalizer::CALLBACKS => [
+                'totalAmount' => function (float $value, PaymentInitRequest $object): int {
+                    return $object->getRawTotalAmount();
+                },
+                'merchant' => function (Merchant $value): string {
+                    return $value->merchantId;
+                },
+            ],
+            AbstractNormalizer::IGNORED_ATTRIBUTES => ['rawTotalAmount'],
+            AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
+            DateTimeNormalizer::FORMAT_KEY => 'c',
+            NormalizerResultOrderingHelper::ORDER => [
+                'merchantId',
+                'orderNo',
+                'dttm',
+                'payOperation',
+                'payMethod',
+                'totalAmount',
+                'currency',
+                'closePayment',
+                'returnUrl',
+                'returnMethod',
+                'cart',
+                'customer',
+                'order',
+                'merchantData',
+                'language',
+                'ttlSec',
+            ],
+        ];
     }
 }

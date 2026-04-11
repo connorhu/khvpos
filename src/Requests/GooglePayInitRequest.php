@@ -26,4 +26,10 @@ class GooglePayInitRequest implements RequestInterface
     {
         throw new \LogicException('Not yet implemented');
     }
+
+    #[Ignore]
+    public function getNormalizationContext(): array
+    {
+        throw new \LogicException('Not yet implemented');
+    }
 }
