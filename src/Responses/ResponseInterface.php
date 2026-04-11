@@ -4,9 +4,7 @@ namespace KHTools\VPos\Responses;
 
 interface ResponseInterface
 {
-    public function getResultCode(): int;
+    public function getResultCode(): ?int;
 
-    public function getResultMessage(): string;
-
-
+    public function getResultMessage(): ?string;
 }
