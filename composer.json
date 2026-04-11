@@ -1,6 +1,6 @@
 {
     "name": "connorhu/khvpos",
-    "description": "Helper tools for working with K&H src/VPos",
+    "description": "K&H Payment Gateway client library with Symfony and Payum support.",
     "license": "MIT",
     "type": "library",
     "require": {
