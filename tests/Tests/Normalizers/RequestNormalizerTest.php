@@ -324,4 +324,24 @@ class RequestNormalizerTest extends TestCase
             'merchantId' => 'abc123',
         ], $normalized);
     }
+
+    private function buildObjectNormalizer(): ObjectNormalizer
+    {
+        $loader = new AttributeLoader();
+        $classMetadataFactory = new ClassMetadataFactory($loader);
+        $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
+        return new ObjectNormalizer($classMetadataFactory, $metadataAwareNameConverter);
+    }
+
+    public function testSupportsNormalizationForRequestInterface(): void
+    {
+        $normalizer = new RequestNormalizer($this->buildObjectNormalizer());
+        $this->assertTrue($normalizer->supportsNormalization(new PaymentInitRequest()));
+    }
+
+    public function testSupportsNormalizationReturnsFalseForNonRequest(): void
+    {
+        $normalizer = new RequestNormalizer($this->buildObjectNormalizer());
+        $this->assertFalse($normalizer->supportsNormalization(new \stdClass()));
+    }
 }

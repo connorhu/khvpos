@@ -22,13 +22,8 @@ class ResponseNormalizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $loader = new AttributeLoader();
-        $classMetadataFactory = new ClassMetadataFactory($loader);
-        $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
-        $extractor = new PropertyInfoExtractor([], [new ReflectionExtractor()]);
-
+        $objectNormalizer = $this->buildObjectNormalizer();
         $enumNormalizer = new EnumNormalizer();
-        $objectNormalizer = new ObjectNormalizer($classMetadataFactory, $metadataAwareNameConverter, null, $extractor);
         $signatureProvider = new SignatureProvider([], './');
 
         $this->normalizer = new Serializer([
@@ -38,6 +33,39 @@ class ResponseNormalizerTest extends TestCase
         ]);
 
         $objectNormalizer->setSerializer($this->normalizer);
+    }
+
+    private function buildObjectNormalizer(): ObjectNormalizer
+    {
+        $loader = new AttributeLoader();
+        $classMetadataFactory = new ClassMetadataFactory($loader);
+        $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
+        $extractor = new PropertyInfoExtractor([], [new ReflectionExtractor()]);
+        return new ObjectNormalizer($classMetadataFactory, $metadataAwareNameConverter, null, $extractor);
+    }
+
+    /**
+     * Builds a standalone ResponseNormalizer suitable for supportsNormalization/supportsDenormalization checks.
+     * Note: ObjectNormalizer is NOT wired to a Serializer — do not use this helper for actual denormalization.
+     */
+    private function buildResponseNormalizer(): ResponseNormalizer
+    {
+        return new ResponseNormalizer(
+            new SignatureProvider([], __DIR__ . '/../Fixtures/test1_public_key.pem'),
+            $this->buildObjectNormalizer(),
+        );
+    }
+
+    public function testSupportsDenormalizationForResponseClass(): void
+    {
+        $normalizer = $this->buildResponseNormalizer();
+        $this->assertTrue($normalizer->supportsDenormalization([], PaymentStatusResponse::class));
+    }
+
+    public function testSupportsDenormalizationReturnsFalseForNonResponseClass(): void
+    {
+        $normalizer = $this->buildResponseNormalizer();
+        $this->assertFalse($normalizer->supportsDenormalization([], \stdClass::class));
     }
 
     public function testPaymentStatusResponse()
