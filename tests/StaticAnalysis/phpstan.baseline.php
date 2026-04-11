@@ -68,6 +68,20 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/../../src/Requests/ApplePayEchoRequest.php',
 ];
 $ignoreErrors[] = [
+	// identifier: property.unusedType
+	// ApplePayEchoRequest properties are written by the Symfony Serializer (external deserialization),
+	// never assigned from PHP code directly — PHPStan cannot see the string assignment path.
+	'message' => '#^Property KHTools\\\\VPos\\\\Requests\\\\ApplePayEchoRequest\\:\\:\\$clientIp \\(string\\|null\\) is never assigned string so it can be removed from the property type\\.$#',
+	'count' => 1,
+	'path' => __DIR__ . '/../../src/Requests/ApplePayEchoRequest.php',
+];
+$ignoreErrors[] = [
+	// identifier: property.unusedType
+	'message' => '#^Property KHTools\\\\VPos\\\\Requests\\\\ApplePayEchoRequest\\:\\:\\$payload \\(string\\|null\\) is never assigned string so it can be removed from the property type\\.$#',
+	'count' => 1,
+	'path' => __DIR__ . '/../../src/Requests/ApplePayEchoRequest.php',
+];
+$ignoreErrors[] = [
 	// identifier: property.onlyWritten
 	'message' => '#^Property KHTools\\\\VPos\\\\Requests\\\\ApplePayEchoRequest\\:\\:\\$payload is never read, only written\\.$#',
 	'count' => 1,
