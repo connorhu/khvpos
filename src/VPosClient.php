@@ -5,7 +5,6 @@ namespace KHTools\VPos;
 use KHTools\VPos\Exceptions\ClientErrorException;
 use KHTools\VPos\Exceptions\HttpErrorException;
 use KHTools\VPos\Exceptions\InvalidArgumentException;
-use KHTools\VPos\Exceptions\UnhandledErrorException;
 use KHTools\VPos\Requests\PaymentProcessRequest;
 use KHTools\VPos\Requests\RequestInterface;
 use KHTools\VPos\Responses\ResponseInterface;
@@ -59,7 +58,7 @@ class VPosClient implements ServiceSubscriberInterface
         }, $endpointPath);
     }
 
-    public function send(RequestInterface $request)
+    public function send(RequestInterface $request): ResponseInterface
     {
         $requestParameters = $this->getNormalizer()->normalize($request);
         $requestParameters['signature'] = $this->getSignatureProvider()->sign($request->getMerchant(), $requestParameters);
@@ -86,12 +85,8 @@ class VPosClient implements ServiceSubscriberInterface
         if (($statusCode = $response->getStatusCode()) !== 200) {
             $contentType = $response->getHeaders()['content-type'][0] ?? '';
 
-            if ($statusCode === 403 && $contentType !== 'application/json') {
-                throw new ClientErrorException($response->getBody()->getContents(), 403);
-            }
-
             if ($contentType !== 'application/json') {
-                throw new UnhandledErrorException(sprintf('Unknown (or missing) content type: "%s"', $contentType));
+                throw new ClientErrorException($response->getBody()->getContents(), $statusCode);
             }
 
             $responseClass = HttpErrorException::getErrorClassWithResponseCode($statusCode);
