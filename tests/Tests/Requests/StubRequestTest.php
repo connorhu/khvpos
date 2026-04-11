@@ -2,9 +2,6 @@
 
 namespace KHTools\Tests\Requests;
 
-use KHTools\VPos\Requests\ApplePayEchoRequest;
-use KHTools\VPos\Requests\ApplePayInitRequest;
-use KHTools\VPos\Requests\ApplePayProcessRequest;
 use KHTools\VPos\Requests\GooglePayEchoRequest;
 use KHTools\VPos\Requests\GooglePayInitRequest;
 use KHTools\VPos\Requests\GooglePayProcessRequest;
@@ -17,8 +14,6 @@ class StubRequestTest extends TestCase
     public static function stubClassProvider(): array
     {
         return [
-            'ApplePayInitRequest' => [ApplePayInitRequest::class],
-            'ApplePayProcessRequest' => [ApplePayProcessRequest::class],
             'GooglePayInitRequest' => [GooglePayInitRequest::class],
             'GooglePayProcessRequest' => [GooglePayProcessRequest::class],
         ];
@@ -36,9 +31,6 @@ class StubRequestTest extends TestCase
     public static function allStubClassProvider(): array
     {
         return [
-            'ApplePayInitRequest' => [ApplePayInitRequest::class],
-            'ApplePayEchoRequest' => [ApplePayEchoRequest::class],
-            'ApplePayProcessRequest' => [ApplePayProcessRequest::class],
             'GooglePayInitRequest' => [GooglePayInitRequest::class],
             'GooglePayEchoRequest' => [GooglePayEchoRequest::class],
             'GooglePayProcessRequest' => [GooglePayProcessRequest::class],
