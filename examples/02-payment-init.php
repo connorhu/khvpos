@@ -33,6 +33,6 @@ $response = $client->send($request);
 assert($response instanceof PaymentInitResponse);
 
 echo sprintf('payId: %s'."\n", $response->getPaymentId());
-echo sprintf('paymentStatus: %d'."\n", $response->getPaymentStatus());
+echo sprintf('paymentStatus: %s'."\n", $response->getPaymentStatus() ?? 'null');
 echo sprintf('resultCode: %d'."\n", $response->getResultCode());
 echo sprintf('resultMessage: %s'."\n", $response->getResultMessage());
