@@ -39,6 +39,9 @@ class PaymentGatewayExtension extends Extension
         $this->setupMerchantProvider($config, $container);
     }
 
+    /**
+     * @param array<string, mixed> $configuration
+     */
     protected function setupSerializer(array $configuration, ContainerBuilder $container): void
     {
         $container->register('khvpos.serializer.normalizer.address_normalizer', AddressNormalizer::class)
@@ -64,6 +67,9 @@ class PaymentGatewayExtension extends Extension
             ->setAutowired(true);
     }
 
+    /**
+     * @param array<string, mixed> $configuration
+     */
     protected function setupVPosClient(array $configuration, ContainerBuilder $container): void
     {
         $container->register('khvpos.vpos_client', VPosClient::class)
@@ -77,6 +83,9 @@ class PaymentGatewayExtension extends Extension
         $container->setAlias(VPosClient::class, 'khvpos.vpos_client')->setPublic(true);
     }
 
+    /**
+     * @param array<string, mixed> $configuration
+     */
     protected function setupSignatureProvider(array $configuration, ContainerBuilder $container): void
     {
         $mipsPublicKeyPath = $configuration['mips_public_key_path']
@@ -98,6 +107,9 @@ class PaymentGatewayExtension extends Extension
         $container->setAlias(SignatureProviderInterface::class, 'khvpos.signature_provider')->setPublic(true);
     }
 
+    /**
+     * @param array<string, mixed> $configuration
+     */
     protected function setupMerchantProvider(array $configuration, ContainerBuilder $container): void
     {
         $merchantProviderConfig = [];
