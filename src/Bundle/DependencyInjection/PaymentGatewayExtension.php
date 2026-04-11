@@ -74,7 +74,7 @@ class PaymentGatewayExtension extends Extension
             ->setAutoconfigured(true)
             ->setAutowired(true);
 
-        $container->setAlias(VPosClient::class, 'khvpos.vpos_client');
+        $container->setAlias(VPosClient::class, 'khvpos.vpos_client')->setPublic(true);
     }
 
     protected function setupSignatureProvider(array $configuration, ContainerBuilder $container): void
@@ -95,7 +95,7 @@ class PaymentGatewayExtension extends Extension
             ]);
         }
 
-        $container->setAlias(SignatureProviderInterface::class, 'khvpos.signature_provider');
+        $container->setAlias(SignatureProviderInterface::class, 'khvpos.signature_provider')->setPublic(true);
     }
 
     protected function setupMerchantProvider(array $configuration, ContainerBuilder $container): void
@@ -108,7 +108,7 @@ class PaymentGatewayExtension extends Extension
         $container->register('khvpos.merchant_provider', MerchantProvider::class)
             ->setArgument(0, $merchantProviderConfig);
 
-        $container->setAlias(MerchantProviderInterface::class, 'khvpos.merchant_provider');
+        $container->setAlias(MerchantProviderInterface::class, 'khvpos.merchant_provider')->setPublic(true);
     }
 
     public function getAlias(): string
