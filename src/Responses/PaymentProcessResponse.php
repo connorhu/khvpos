@@ -64,4 +64,9 @@ class PaymentProcessResponse implements ResponseInterface
     {
         $this->authorizationCode = $authorizationCode;
     }
+
+    public static function getSignatureFieldOrder(): array
+    {
+        return ['payId', 'dttm', 'resultCode', 'resultMessage', 'paymentStatus', 'authCode', 'merchantData', 'statusDetail'];
+    }
 }
