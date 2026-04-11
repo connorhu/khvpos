@@ -34,11 +34,9 @@ class CustomerAccount
     /**
      * @param \DateTimeImmutable|null $createdAt
      */
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     /**
@@ -52,11 +50,9 @@ class CustomerAccount
     /**
      * @param \DateTimeImmutable|null $changedAt
      */
-    public function setChangedAt(?\DateTimeImmutable $changedAt): self
+    public function setChangedAt(?\DateTimeImmutable $changedAt): void
     {
         $this->changedAt = $changedAt;
-
-        return $this;
     }
 
     /**
@@ -70,11 +66,9 @@ class CustomerAccount
     /**
      * @param \DateTime|null $passwordChangedAt
      */
-    public function setPasswordChangedAt(?\DateTime $passwordChangedAt): self
+    public function setPasswordChangedAt(?\DateTime $passwordChangedAt): void
     {
         $this->passwordChangedAt = $passwordChangedAt;
-
-        return $this;
     }
 
     /**
@@ -88,11 +82,9 @@ class CustomerAccount
     /**
      * @param int|null $orderHistory
      */
-    public function setOrderHistory(?int $orderHistory): self
+    public function setOrderHistory(?int $orderHistory): void
     {
         $this->orderHistory = $orderHistory;
-
-        return $this;
     }
 
     /**
@@ -106,11 +98,9 @@ class CustomerAccount
     /**
      * @param int|null $paymentsDay
      */
-    public function setPaymentsDay(?int $paymentsDay): self
+    public function setPaymentsDay(?int $paymentsDay): void
     {
         $this->paymentsDay = $paymentsDay;
-
-        return $this;
     }
 
     /**
@@ -124,11 +114,9 @@ class CustomerAccount
     /**
      * @param int|null $paymentsYear
      */
-    public function setPaymentsYear(?int $paymentsYear): self
+    public function setPaymentsYear(?int $paymentsYear): void
     {
         $this->paymentsYear = $paymentsYear;
-
-        return $this;
     }
 
     /**
@@ -142,11 +130,9 @@ class CustomerAccount
     /**
      * @param int|null $oneClickAdds
      */
-    public function setOneClickAdds(?int $oneClickAdds): self
+    public function setOneClickAdds(?int $oneClickAdds): void
     {
         $this->oneClickAdds = $oneClickAdds;
-
-        return $this;
     }
 
     /**
@@ -160,10 +146,8 @@ class CustomerAccount
     /**
      * @param bool|null $suspicious
      */
-    public function setSuspicious(?bool $suspicious): self
+    public function setSuspicious(?bool $suspicious): void
     {
         $this->suspicious = $suspicious;
-
-        return $this;
     }
 }

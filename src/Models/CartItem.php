@@ -27,11 +27,9 @@ class CartItem
      *
      * @param string|null $name
      */
-    public function setName(?string $name): self
+    public function setName(?string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -49,11 +47,9 @@ class CartItem
      *
      * @param int|null $quantity
      */
-    public function setQuantity(?int $quantity): self
+    public function setQuantity(?int $quantity): void
     {
         $this->quantity = $quantity;
-
-        return $this;
     }
 
     /**
@@ -79,11 +75,9 @@ class CartItem
      *
      * @param float|null $amount
      */
-    public function setAmount(?float $amount): self
+    public function setAmount(?float $amount): void
     {
         $this->amount = (int) \bcmul(number_format((float) $amount, 2, '.', ''), '100');
-
-        return $this;
     }
 
     /**
@@ -101,10 +95,8 @@ class CartItem
      *
      * @param string|null $description
      */
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 }

@@ -19,11 +19,9 @@ class Authenticate
     /**
      * @param Browser|null $browserChallenge
      */
-    public function setBrowserChallenge(?Browser $browserChallenge): self
+    public function setBrowserChallenge(?Browser $browserChallenge): void
     {
         $this->browserChallenge = $browserChallenge;
-
-        return $this;
     }
 
     /**
@@ -37,10 +35,8 @@ class Authenticate
     /**
      * @param Sdk|null $sdkChallenge
      */
-    public function setSdkChallenge(?Sdk $sdkChallenge): self
+    public function setSdkChallenge(?Sdk $sdkChallenge): void
     {
         $this->sdkChallenge = $sdkChallenge;
-
-        return $this;
     }
 }

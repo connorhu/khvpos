@@ -23,11 +23,9 @@ class CustomerLogin
     /**
      * @param CustomerLoginAuth|null $auth
      */
-    public function setAuth(?CustomerLoginAuth $auth): self
+    public function setAuth(?CustomerLoginAuth $auth): void
     {
         $this->auth = $auth;
-
-        return $this;
     }
 
     /**
@@ -41,11 +39,9 @@ class CustomerLogin
     /**
      * @param \DateTime|null $authAt
      */
-    public function setAuthAt(?\DateTime $authAt): self
+    public function setAuthAt(?\DateTime $authAt): void
     {
         $this->authAt = $authAt;
-
-        return $this;
     }
 
     /**
@@ -59,10 +55,8 @@ class CustomerLogin
     /**
      * @param string|null $authData
      */
-    public function setAuthData(?string $authData): self
+    public function setAuthData(?string $authData): void
     {
         $this->authData = $authData;
-
-        return $this;
     }
 }

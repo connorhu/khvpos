@@ -29,11 +29,9 @@ class Customer
     /**
      * @param string|null $name
      */
-    public function setName(?string $name): self
+    public function setName(?string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -47,11 +45,9 @@ class Customer
     /**
      * @param string|null $email
      */
-    public function setEmail(?string $email): self
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
-
-        return $this;
     }
 
     /**
@@ -65,11 +61,9 @@ class Customer
     /**
      * @param string|null $homePhone
      */
-    public function setHomePhone(?string $homePhone): self
+    public function setHomePhone(?string $homePhone): void
     {
         $this->homePhone = $homePhone;
-
-        return $this;
     }
 
     /**
@@ -83,11 +77,9 @@ class Customer
     /**
      * @param string|null $workPhone
      */
-    public function setWorkPhone(?string $workPhone): self
+    public function setWorkPhone(?string $workPhone): void
     {
         $this->workPhone = $workPhone;
-
-        return $this;
     }
 
     /**
@@ -101,11 +93,9 @@ class Customer
     /**
      * @param string|null $mobilePhone
      */
-    public function setMobilePhone(?string $mobilePhone): self
+    public function setMobilePhone(?string $mobilePhone): void
     {
         $this->mobilePhone = $mobilePhone;
-
-        return $this;
     }
 
     /**
@@ -119,11 +109,9 @@ class Customer
     /**
      * @param CustomerAccount|null $account
      */
-    public function setAccount(?CustomerAccount $account): self
+    public function setAccount(?CustomerAccount $account): void
     {
         $this->account = $account;
-
-        return $this;
     }
 
     /**
@@ -137,10 +125,8 @@ class Customer
     /**
      * @param CustomerLogin|null $login
      */
-    public function setLogin(?CustomerLogin $login): self
+    public function setLogin(?CustomerLogin $login): void
     {
         $this->login = $login;
-
-        return $this;
     }
 }
