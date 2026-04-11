@@ -1,0 +1,8 @@
+parameters:
+    level: 5
+    phpVersion: 80200
+    paths:
+        - tests/Tests
+
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon

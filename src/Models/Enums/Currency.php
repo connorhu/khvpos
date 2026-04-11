@@ -19,6 +19,9 @@ enum Currency implements StringValueEnum
         };
     }
 
+    /**
+     * @return list<string>
+     */
     public static function stringValues(): array
     {
         return [

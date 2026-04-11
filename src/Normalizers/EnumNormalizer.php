@@ -10,13 +10,11 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class EnumNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     /**
-     * @param StringValueEnum $object
-     * @param string|null $format
-     * @param array $context
      * @return string
      */
     public function normalize(mixed $object, string $format = null, array $context = []): string
     {
+        assert($object instanceof StringValueEnum);
         return $object->stringValue();
     }
 

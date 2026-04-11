@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace KHTools\VPos\Requests;
 
@@ -28,7 +28,7 @@ class OneClickEchoRequest implements RequestInterface
     #[Ignore]
     public function getResponseClass(): string
     {
-        exit;
+        throw new \LogicException('Not yet implemented');
     }
 
     /**
@@ -45,5 +45,11 @@ class OneClickEchoRequest implements RequestInterface
     public function setOriginalPaymentId(?string $originalPaymentId): void
     {
         $this->originalPaymentId = $originalPaymentId;
+    }
+
+    #[Ignore]
+    public function getNormalizationContext(): array
+    {
+        throw new \LogicException('Not yet implemented');
     }
 }

@@ -10,6 +10,7 @@ class Browser
 
     public ?HttpMethod $method = null;
 
+    /** @var array<string, mixed>|null */
     public ?array $vars = null;
 
     /**
@@ -49,7 +50,7 @@ class Browser
     }
 
     /**
-     * @return array|null
+     * @return array<string, mixed>|null
      */
     public function getVars(): ?array
     {
@@ -57,7 +58,7 @@ class Browser
     }
 
     /**
-     * @param array|null $vars
+     * @param array<string, mixed>|null $vars
      */
     public function setVars(?array $vars): self
     {

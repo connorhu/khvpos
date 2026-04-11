@@ -18,4 +18,13 @@ interface RequestInterface
      * @return class-string
      */
     public function getResponseClass(): string;
+
+    /**
+     * Returns the Symfony Serializer normalizer context to use when serializing this request.
+     * Implementations must annotate this method with #[Ignore] to prevent it from appearing
+     * in the serialized output.
+     *
+     * @return array<string, mixed>
+     */
+    public function getNormalizationContext(): array;
 }

@@ -18,14 +18,18 @@ class GooglePayProcessRequest implements RequestInterface
     #[Ignore]
     public function getEndpointPath(): string
     {
-        exit;
-        return '';
+        throw new \LogicException('Not yet implemented');
     }
 
     #[Ignore]
     public function getResponseClass(): string
     {
-        exit;
-        // TODO: Implement getResponseClass() method.
+        throw new \LogicException('Not yet implemented');
+    }
+
+    #[Ignore]
+    public function getNormalizationContext(): array
+    {
+        throw new \LogicException('Not yet implemented');
     }
 }

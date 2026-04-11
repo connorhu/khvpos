@@ -2,11 +2,14 @@
 
 namespace KHTools\VPos\Requests;
 
+use KHTools\VPos\Normalizers\NormalizerResultOrderingHelper;
 use KHTools\VPos\Requests\Traits\MerchantTrait;
 use KHTools\VPos\Requests\Traits\PaymentIdTrait;
 use KHTools\VPos\Responses\EchoResponse;
 use KHTools\VPos\Responses\PaymentCloseResponse;
 use Symfony\Component\Serializer\Annotation\Ignore;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 class PaymentCloseRequest implements RequestInterface
 {
@@ -38,7 +41,7 @@ class PaymentCloseRequest implements RequestInterface
      */
     public function getTotalAmount(): ?float
     {
-        return $this->totalAmount / 100;
+        return $this->totalAmount === null ? null : $this->totalAmount / 100;
     }
 
     public function getRawTotalAmount(): ?int
@@ -51,6 +54,26 @@ class PaymentCloseRequest implements RequestInterface
      */
     public function setTotalAmount(?int $totalAmount): void
     {
-        $this->totalAmount = (int) round($totalAmount * 100);
+        $this->totalAmount = $totalAmount === null ? null : (int) round($totalAmount * 100);
+    }
+
+    #[Ignore]
+    public function getNormalizationContext(): array
+    {
+        return [
+            AbstractNormalizer::IGNORED_ATTRIBUTES => ['rawTotalAmount'],
+            AbstractNormalizer::CALLBACKS => [
+                'totalAmount' => function (mixed $value, PaymentCloseRequest $object): ?int {
+                    return $object->getRawTotalAmount();
+                },
+            ],
+            AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
+            NormalizerResultOrderingHelper::ORDER => [
+                'merchantId',
+                'payId',
+                'dttm',
+                'totalAmount',
+            ],
+        ];
     }
 }

@@ -9,6 +9,7 @@ use KHTools\VPos\Keys\PublicKey;
 
 class SignatureProvider implements SignatureProviderInterface
 {
+    /** @var array<string, PrivateKey> */
     private array $privateKeys;
     private PublicKey $mipsPublicKey;
 
@@ -43,6 +44,9 @@ class SignatureProvider implements SignatureProviderInterface
         return $key;
     }
 
+    /**
+     * @param array<string, mixed> $contentToSign
+     */
     private function buildStringContentToSign(array $contentToSign): string
     {
         $iterator = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($contentToSign));
@@ -62,6 +66,9 @@ class SignatureProvider implements SignatureProviderInterface
         return rtrim($buffer, '|');
     }
 
+    /**
+     * @param array<string, mixed> $contentToSign
+     */
     public function sign(Merchant $merchant, array $contentToSign): string
     {
         $signature = '';
@@ -71,11 +78,17 @@ class SignatureProvider implements SignatureProviderInterface
         return \base64_encode($signature);
     }
 
+    /**
+     * @param array<string, mixed> $signedContent
+     */
     public function verify(array $signedContent, string $signature): bool
     {
         $data = $this->buildStringContentToSign($signedContent);
-        $signature = base64_decode($signature);
-        $result = \openssl_verify($data, $signature, $this->mipsPublicKey->getSSLKey(), OPENSSL_ALGO_SHA256);
+        $decodedSignature = base64_decode($signature, true);
+        if ($decodedSignature === false) {
+            throw new SSLErrorException('Invalid base64-encoded signature.');
+        }
+        $result = \openssl_verify($data, $decodedSignature, $this->mipsPublicKey->getSSLKey(), OPENSSL_ALGO_SHA256);
 
         if ($result === 1) {
             return true;

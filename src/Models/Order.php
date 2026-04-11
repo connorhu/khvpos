@@ -10,35 +10,36 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 class Order
 {
-    public ?OrderType $type = null;
+    private ?OrderType $type = null;
 
-    public ?OrderAvailability $availability = null;
+    private ?OrderAvailability $availability = null;
 
-    public ?OrderDelivery $delivery = null;
+    private ?OrderDelivery $delivery = null;
 
-    public ?DeliveryMode $deliveryMode = null;
+    private ?DeliveryMode $deliveryMode = null;
 
     /**
      * e-mail address to which the merchant delivers electronic goods (gift card codes, etc.), max. length 100 characters.
      *
      * @var string|null
      */
-    public ?string $deliveryEmail = null;
+    private ?string $deliveryEmail = null;
 
-    public ?bool $nameMatch = null;
+    private ?bool $nameMatch = null;
 
-    public ?bool $addressMatch = null;
+    private ?bool $addressMatch = null;
 
-    public ?Address $billing = null;
+    private ?Address $billing = null;
 
-    public ?Address $shipping = null;
+    private ?Address $shipping = null;
 
-    public ?\DateTime $shippingAddedAt = null;
+    private ?\DateTime $shippingAddedAt = null;
 
-    public ?bool $reorder = null;
+    private ?bool $reorder = null;
 
+    /** @var array<int, GiftCard> */
     #[SerializedName(serializedName: 'giftcards')]
-    public ?array $giftCards = [];
+    private array $giftCards = [];
 
     /**
      * @return OrderType|null
@@ -217,17 +218,17 @@ class Order
     }
 
     /**
-     * @return array|null
+     * @return array<int, GiftCard>
      */
-    public function getGiftCards(): ?array
+    public function getGiftCards(): array
     {
         return $this->giftCards;
     }
 
     /**
-     * @param array|null $giftCards
+     * @param array<int, GiftCard> $giftCards
      */
-    public function setGiftCards(?array $giftCards): void
+    public function setGiftCards(array $giftCards): void
     {
         $this->giftCards = $giftCards;
     }

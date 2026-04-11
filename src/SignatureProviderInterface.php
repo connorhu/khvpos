@@ -6,7 +6,13 @@ use KHTools\VPos\Models\Merchant;
 
 interface SignatureProviderInterface
 {
+    /**
+     * @param array<string, mixed> $contentToSign
+     */
     public function sign(Merchant $merchant, array $contentToSign): string;
 
+    /**
+     * @param array<string, mixed> $signedContent
+     */
     public function verify(array $signedContent, string $signature): bool;
 }

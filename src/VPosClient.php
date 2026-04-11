@@ -5,7 +5,6 @@ namespace KHTools\VPos;
 use KHTools\VPos\Exceptions\ClientErrorException;
 use KHTools\VPos\Exceptions\HttpErrorException;
 use KHTools\VPos\Exceptions\InvalidArgumentException;
-use KHTools\VPos\Exceptions\UnhandledErrorException;
 use KHTools\VPos\Requests\PaymentProcessRequest;
 use KHTools\VPos\Requests\RequestInterface;
 use KHTools\VPos\Responses\ResponseInterface;
@@ -16,6 +15,7 @@ use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Contracts\Service\Attribute\SubscribedService;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use Symfony\Contracts\Service\ServiceSubscriberTrait;
@@ -30,7 +30,7 @@ class VPosClient implements ServiceSubscriberInterface
         self::VERSION_REST_V1,
     ];
 
-    private ClientInterface $httpClient;
+    protected ContainerInterface $container;
 
     public function __construct(
         private readonly string $version,
@@ -43,30 +43,34 @@ class VPosClient implements ServiceSubscriberInterface
     {
         return match ($this->version) {
             self::VERSION_REST_V1 => sprintf('https://api.%skhpos.hu/api/v1.0', $this->isTest ? 'sandbox.' : ''),
+            default => throw new InvalidArgumentException(sprintf('Unknown version: "%s"', $this->version)),
         };
     }
 
+    /**
+     * @param array<string, mixed> $requestParameters
+     */
     private function prepareEndpointPath(string $endpointPath, array $requestParameters): string
     {
-        return preg_replace_callback('/\{([^\}]*)\}/', function (array $matchedElements) use ($requestParameters) {
+        return (string) preg_replace_callback('/\{([^\}]*)\}/', function (array $matchedElements) use ($requestParameters) {
             $parameterName = $matchedElements[1];
             $value = $requestParameters[$parameterName] ?? null;
             if ($value === null) {
-                throw new InvalidArgumentException('Parameter ("%s") not found in request parameters ("%s").', $parameterName, implode('", "', array_keys($requestParameters)));
+                throw new InvalidArgumentException(sprintf('Parameter ("%s") not found in request parameters ("%s").', $parameterName, implode('", "', array_keys($requestParameters))));
             }
 
             return $value;
         }, $endpointPath);
     }
 
-    public function send(RequestInterface $request)
+    public function send(RequestInterface $request): ResponseInterface
     {
-        $requestParameters = $this->getNormalizer()->normalize($request);
+        $requestParameters = (array) $this->getNormalizer()->normalize($request);
         $requestParameters['signature'] = $this->getSignatureProvider()->sign($request->getMerchant(), $requestParameters);
 
         $endpointPath = $request->getEndpointPath();
 
-        if ($request->getRequestMethod() === 'GET' && \count($requestParameters) > 0) {
+        if ($request->getRequestMethod() === 'GET') {
             $requestParameters['signature'] = urlencode($requestParameters['signature']);
             $endpointPath = $this->prepareEndpointPath($endpointPath, $requestParameters);
         }
@@ -74,7 +78,8 @@ class VPosClient implements ServiceSubscriberInterface
         $httpRequest = $this->getRequestFactory()->createRequest($request->getRequestMethod(), $this->getEndpointBase().$endpointPath);
 
         if ($request->getRequestMethod() === 'POST' || $request->getRequestMethod() === 'PUT') {
-            $bodyString = json_encode($requestParameters, JSON_PRETTY_PRINT);
+            $encoded = json_encode($requestParameters, JSON_PRETTY_PRINT);
+            $bodyString = $encoded !== false ? $encoded : '';
             $stream = $this->getStreamFactory()->createStream($bodyString);
             $httpRequest = $httpRequest
                 ->withHeader('Content-Type', 'application/json')
@@ -86,12 +91,8 @@ class VPosClient implements ServiceSubscriberInterface
         if (($statusCode = $response->getStatusCode()) !== 200) {
             $contentType = $response->getHeaders()['content-type'][0] ?? '';
 
-            if ($statusCode === 403 && $contentType !== 'application/json') {
-                throw new ClientErrorException($response->getBody()->getContents(), 403);
-            }
-
             if ($contentType !== 'application/json') {
-                throw new UnhandledErrorException(sprintf('Unknown (or missing) content type: "%s"', $contentType));
+                throw new ClientErrorException($response->getBody()->getContents(), $statusCode);
             }
 
             $responseClass = HttpErrorException::getErrorClassWithResponseCode($statusCode);
@@ -114,7 +115,7 @@ class VPosClient implements ServiceSubscriberInterface
 
     public function getPaymentUrlWithPaymentProcessRequest(PaymentProcessRequest $paymentProcessRequest): string
     {
-        $requestParameters = $this->getNormalizer()->normalize($paymentProcessRequest);
+        $requestParameters = (array) $this->getNormalizer()->normalize($paymentProcessRequest);
         $requestParameters['dttm'] = date("YmdHis");
         $requestParameters['signature'] = urlencode($this->getSignatureProvider()->sign($paymentProcessRequest->getMerchant(), $requestParameters));
         $endpointPath = $this->prepareEndpointPath($paymentProcessRequest->getEndpointPath(), $requestParameters);
@@ -122,13 +123,14 @@ class VPosClient implements ServiceSubscriberInterface
     }
 
     /**
-     * @psalm-template Tresponse
-     * @param array $responseArray
-     * @psalm-param class-string<Tresponse> $responseClass
+     * @template Tresponse of ResponseInterface
+     * @param array<string, mixed> $responseArray
+     * @param class-string<Tresponse> $responseClass
      * @return Tresponse
      */
     public function initResponseWithArray(array $responseArray, string $responseClass): ResponseInterface
     {
+        /** @var Tresponse */
         return $this->getDenormalizer()->denormalize($responseArray, $responseClass, 'array');
     }
 

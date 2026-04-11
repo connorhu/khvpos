@@ -15,9 +15,13 @@ class CartItemNormalizer implements NormalizerInterface
     {
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
-        $normalized = $this->objectNormalizer->normalize($object, $format, [
+        assert($object instanceof CartItem);
+        $normalized = (array) $this->objectNormalizer->normalize($object, $format, [
             AbstractObjectNormalizer::CALLBACKS => [
                 'amount' => function (float $value, CartItem $cartItem) {
                     return $cartItem->getRawAmount();

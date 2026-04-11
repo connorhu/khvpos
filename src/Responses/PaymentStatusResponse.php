@@ -103,4 +103,9 @@ class PaymentStatusResponse implements ResponseInterface
     {
         $this->authenticateAction = $authenticateAction;
     }
+
+    public static function getSignatureFieldOrder(): array
+    {
+        return ['payId', 'dttm', 'resultCode', 'resultMessage', 'paymentStatus', 'authCode', 'statusDetail', 'actions'];
+    }
 }

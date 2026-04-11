@@ -64,4 +64,9 @@ class PaymentReverseResponse implements ResponseInterface
     {
         $this->statusDetail = $statusDetail;
     }
+
+    public static function getSignatureFieldOrder(): array
+    {
+        return ['payId', 'dttm', 'resultCode', 'resultMessage', 'paymentStatus', 'statusDetail'];
+    }
 }
