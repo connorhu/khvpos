@@ -63,6 +63,11 @@ class VPosClient implements ServiceSubscriberInterface
         }, $endpointPath);
     }
 
+    /**
+     * @template TResponse of ResponseInterface
+     * @param RequestInterface<TResponse> $request
+     * @return TResponse
+     */
     public function send(RequestInterface $request): ResponseInterface
     {
         $requestParameters = (array) $this->getNormalizer()->normalize($request);

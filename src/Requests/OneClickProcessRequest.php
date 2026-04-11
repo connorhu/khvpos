@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
+/** @implements RequestInterface<OneClickProcessResponse> */
 class OneClickProcessRequest implements RequestInterface
 {
 	use MerchantTrait;
