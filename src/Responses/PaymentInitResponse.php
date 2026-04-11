@@ -16,6 +16,9 @@ class PaymentInitResponse implements ResponseInterface
 
     private ?string $statusDetail = null;
 
+    #[SerializedName(serializedName: 'customerCode')]
+    private ?string $customerCode = null;
+
     /**
      * @return string
      */
@@ -64,8 +67,24 @@ class PaymentInitResponse implements ResponseInterface
         $this->statusDetail = $statusDetail;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getCustomerCode(): ?string
+    {
+        return $this->customerCode;
+    }
+
+    /**
+     * @param string|null $customerCode
+     */
+    public function setCustomerCode(?string $customerCode): void
+    {
+        $this->customerCode = $customerCode;
+    }
+
     public static function getSignatureFieldOrder(): array
     {
-        return ['payId', 'dttm', 'resultCode', 'resultMessage', 'paymentStatus', 'statusDetail'];
+        return ['payId', 'dttm', 'resultCode', 'resultMessage', 'paymentStatus', 'statusDetail', 'customerCode'];
     }
 }

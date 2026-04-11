@@ -212,6 +212,12 @@ class RequestNormalizerTest extends TestCase
                 ],
             ],
         ]];
+
+        $paymentInit = new PaymentInitRequest();
+        $paymentInit->setCustomExpiry(new \DateTimeImmutable('2026-01-01T10:00:00+00:00'));
+        yield [$paymentInit, [
+            'customExpiry' => '2026-01-01T10:00:00+00:00',
+        ]];
     }
 
     #[DataProvider(methodName: 'simplePaymentRequestsDataProvider')]
