@@ -2,54 +2,65 @@
 
 namespace KHTools\VPos\Requests;
 
+use KHTools\VPos\Models\Merchant;
+use KHTools\VPos\Normalizers\NormalizerResultOrderingHelper;
 use KHTools\VPos\Requests\Traits\MerchantTrait;
+use KHTools\VPos\Responses\OneClickEchoResponse;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Serializer\Annotation\SerializedName;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 class OneClickEchoRequest implements RequestInterface
 {
-    use MerchantTrait;
+	use MerchantTrait;
 
-    #[SerializedName(serializedName: 'origPayId')]
-    private ?string $originalPaymentId = null;
+	#[SerializedName(serializedName: 'origPayId')]
+	private ?string $originalPaymentId = null;
 
-    #[Ignore]
-    public function getRequestMethod(): string
-    {
-        return 'POST';
-    }
+	#[Ignore]
+	public function getRequestMethod(): string
+	{
+		return 'POST';
+	}
 
-    #[Ignore]
-    public function getEndpointPath(): string
-    {
-        return '/oneclick/echo';
-    }
+	#[Ignore]
+	public function getEndpointPath(): string
+	{
+		return '/oneclick/echo';
+	}
 
-    #[Ignore]
-    public function getResponseClass(): string
-    {
-        throw new \LogicException('Not yet implemented');
-    }
+	#[Ignore]
+	public function getResponseClass(): string
+	{
+		return OneClickEchoResponse::class;
+	}
 
-    /**
-     * @return string|null
-     */
-    public function getOriginalPaymentId(): ?string
-    {
-        return $this->originalPaymentId;
-    }
+	#[Ignore]
+	public function getNormalizationContext(): array
+	{
+		return [
+			AbstractNormalizer::CALLBACKS => [
+				'merchant' => function (Merchant $value): string {
+					return $value->merchantId;
+				},
+			],
+			AbstractObjectNormalizer::SKIP_NULL_VALUES => true,
+			NormalizerResultOrderingHelper::ORDER => [
+				'merchantId',
+				'origPayId',
+				'dttm',
+			],
+		];
+	}
 
-    /**
-     * @param string|null $originalPaymentId
-     */
-    public function setOriginalPaymentId(?string $originalPaymentId): void
-    {
-        $this->originalPaymentId = $originalPaymentId;
-    }
+	public function getOriginalPaymentId(): ?string
+	{
+		return $this->originalPaymentId;
+	}
 
-    #[Ignore]
-    public function getNormalizationContext(): array
-    {
-        throw new \LogicException('Not yet implemented');
-    }
+	public function setOriginalPaymentId(?string $originalPaymentId): void
+	{
+		$this->originalPaymentId = $originalPaymentId;
+	}
 }

@@ -8,9 +8,6 @@ use KHTools\VPos\Requests\ApplePayProcessRequest;
 use KHTools\VPos\Requests\GooglePayEchoRequest;
 use KHTools\VPos\Requests\GooglePayInitRequest;
 use KHTools\VPos\Requests\GooglePayProcessRequest;
-use KHTools\VPos\Requests\OneClickEchoRequest;
-use KHTools\VPos\Requests\OneClickInitRequest;
-use KHTools\VPos\Requests\OneClickProcessRequest;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -20,8 +17,6 @@ class StubRequestTest extends TestCase
     public static function stubClassProvider(): array
     {
         return [
-            'OneClickInitRequest' => [OneClickInitRequest::class],
-            'OneClickProcessRequest' => [OneClickProcessRequest::class],
             'ApplePayInitRequest' => [ApplePayInitRequest::class],
             'ApplePayProcessRequest' => [ApplePayProcessRequest::class],
             'GooglePayInitRequest' => [GooglePayInitRequest::class],
@@ -41,9 +36,6 @@ class StubRequestTest extends TestCase
     public static function allStubClassProvider(): array
     {
         return [
-            'OneClickInitRequest' => [OneClickInitRequest::class],
-            'OneClickEchoRequest' => [OneClickEchoRequest::class],
-            'OneClickProcessRequest' => [OneClickProcessRequest::class],
             'ApplePayInitRequest' => [ApplePayInitRequest::class],
             'ApplePayEchoRequest' => [ApplePayEchoRequest::class],
             'ApplePayProcessRequest' => [ApplePayProcessRequest::class],
