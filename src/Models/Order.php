@@ -3,7 +3,6 @@
 namespace KHTools\VPos\Models;
 
 use KHTools\VPos\Models\Enums\DeliveryMode;
-use KHTools\VPos\Models\GiftCard;
 use KHTools\VPos\Models\Enums\OrderAvailability;
 use KHTools\VPos\Models\Enums\OrderDelivery;
 use KHTools\VPos\Models\Enums\OrderType;
