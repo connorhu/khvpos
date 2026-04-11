@@ -10,21 +10,21 @@
 | Method            | Support             |
 |-------------------|---------------------|
 | echo              | [yes][echo example] |
-| payment/init      | yes                 |
-| payment/process   | yes                 |
-| payment/status    | yes                 |
-| payment/reverse   | yes                 |
-| payment/close     | yes                 |
-| payment/refund    | yes                 |
-| oneclick/echo     | yes                 |
-| oneclick/init     | yes                 |
-| oneclick/process  | yes                 |
-| applepay/echo     | yes                 |
-| applepay/init     | yes                 |
-| applepay/process  | yes                 |
-| googlepay/echo    | yes                 |
-| googlepay/init    | yes                 |
-| googlepay/process | yes                 |
+| payment/init      | [yes][payment/init example]      |
+| payment/process   | [yes][payment/process example]   |
+| payment/status    | [yes][payment/status example]    |
+| payment/reverse   | [yes][payment/reverse example]   |
+| payment/close     | [yes][payment/close example]     |
+| payment/refund    | [yes][payment/refund example]    |
+| oneclick/echo     | [yes][oneclick/echo example]     |
+| oneclick/init     | [yes][oneclick/init example]     |
+| oneclick/process  | [yes][oneclick/process example]  |
+| applepay/echo     | [yes][applepay/echo example]     |
+| applepay/init     | [yes][applepay/init example]     |
+| applepay/process  | [yes][applepay/process example]  |
+| googlepay/echo    | [yes][googlepay/echo example]    |
+| googlepay/init    | [yes][googlepay/init example]    |
+| googlepay/process | [yes][googlepay/process example] |
 
 ## Installation
 
@@ -140,3 +140,18 @@ The first configured merchant is used. Supported Payum requests: `Capture`, `Aut
   [2x coverage image]: https://codecov.io/gh/connorhu/khvpos/branch/2.x/graph/badge.svg
   [2x coverage]: https://codecov.io/gh/connorhu/khvpos/branch/2.x
   [echo example]: https://github.com/connorhu/khvpos/blob/2.x/examples/01-echo-request.php
+  [payment/init example]: https://github.com/connorhu/khvpos/blob/2.x/examples/02-payment-init.php
+  [payment/process example]: https://github.com/connorhu/khvpos/blob/2.x/examples/03-payment-process.php
+  [payment/status example]: https://github.com/connorhu/khvpos/blob/2.x/examples/04-payment-status.php
+  [payment/reverse example]: https://github.com/connorhu/khvpos/blob/2.x/examples/05-payment-reverse.php
+  [payment/close example]: https://github.com/connorhu/khvpos/blob/2.x/examples/06-payment-close.php
+  [payment/refund example]: https://github.com/connorhu/khvpos/blob/2.x/examples/07-payment-refund.php
+  [oneclick/echo example]: https://github.com/connorhu/khvpos/blob/2.x/examples/08-oneclick-echo.php
+  [oneclick/init example]: https://github.com/connorhu/khvpos/blob/2.x/examples/09-oneclick-init.php
+  [oneclick/process example]: https://github.com/connorhu/khvpos/blob/2.x/examples/10-oneclick-process.php
+  [applepay/echo example]: https://github.com/connorhu/khvpos/blob/2.x/examples/11-applepay-echo.php
+  [applepay/init example]: https://github.com/connorhu/khvpos/blob/2.x/examples/12-applepay-init.php
+  [applepay/process example]: https://github.com/connorhu/khvpos/blob/2.x/examples/13-applepay-process.php
+  [googlepay/echo example]: https://github.com/connorhu/khvpos/blob/2.x/examples/14-googlepay-echo.php
+  [googlepay/init example]: https://github.com/connorhu/khvpos/blob/2.x/examples/15-googlepay-init.php
+  [googlepay/process example]: https://github.com/connorhu/khvpos/blob/2.x/examples/16-googlepay-process.php
