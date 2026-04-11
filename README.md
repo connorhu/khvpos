@@ -16,15 +16,15 @@
 | payment/reverse   | yes                 |
 | payment/close     | yes                 |
 | payment/refund    | yes                 |
-| oneclick/echo     | no                  |
-| oneclick/init     | no                  |
-| oneclick/process  | no                  |
-| applepay/echo     | no                  |
-| applepay/init     | no                  |
-| applepay/process  | no                  |
-| googlepay/echo    | no                  |
-| googlepay/init    | no                  |
-| googlepay/process | no                  |
+| oneclick/echo     | yes                 |
+| oneclick/init     | yes                 |
+| oneclick/process  | yes                 |
+| applepay/echo     | yes                 |
+| applepay/init     | yes                 |
+| applepay/process  | yes                 |
+| googlepay/echo    | yes                 |
+| googlepay/init    | yes                 |
+| googlepay/process | yes                 |
 
   [test status image]: https://github.com/connorhu/khvpos/actions/workflows/tests.yml/badge.svg?branch=master
   [test status]: https://github.com/connorhu/khvpos/actions/workflows/tests.yml

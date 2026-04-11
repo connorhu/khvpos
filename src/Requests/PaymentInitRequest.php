@@ -60,6 +60,9 @@ class PaymentInitRequest implements RequestInterface
     #[SerializedName(serializedName: 'ttlSec')]
     private ?int $ttl = null;
 
+    #[SerializedName(serializedName: 'customExpiry')]
+    private ?\DateTimeInterface $customExpiry = null;
+
     #[Ignore]
     public function getRequestMethod(): string
     {
@@ -289,6 +292,22 @@ class PaymentInitRequest implements RequestInterface
     }
 
     /**
+     * @return \DateTimeInterface|null
+     */
+    public function getCustomExpiry(): ?\DateTimeInterface
+    {
+        return $this->customExpiry;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $customExpiry
+     */
+    public function setCustomExpiry(?\DateTimeInterface $customExpiry): void
+    {
+        $this->customExpiry = $customExpiry;
+    }
+
+    /**
      * @return string|null
      */
     public function getMerchantData(): ?string
@@ -336,6 +355,7 @@ class PaymentInitRequest implements RequestInterface
                 'merchantData',
                 'language',
                 'ttlSec',
+                'customExpiry',
             ],
         ];
     }

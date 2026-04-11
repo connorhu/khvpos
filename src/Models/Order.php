@@ -37,6 +37,9 @@ class Order
 
     private ?bool $reorder = null;
 
+    #[SerializedName(serializedName: 'trxUsage')]
+    private ?int $trxUsage = null;
+
     /** @var array<int, GiftCard> */
     #[SerializedName(serializedName: 'giftcards')]
     private array $giftCards = [];
@@ -215,6 +218,22 @@ class Order
     public function setReorder(?bool $reorder): void
     {
         $this->reorder = $reorder;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getTrxUsage(): ?int
+    {
+        return $this->trxUsage;
+    }
+
+    /**
+     * @param int|null $trxUsage
+     */
+    public function setTrxUsage(?int $trxUsage): void
+    {
+        $this->trxUsage = $trxUsage;
     }
 
     /**
