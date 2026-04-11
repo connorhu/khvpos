@@ -26,7 +26,6 @@ use KHTools\VPos\Requests\PaymentStatusRequest;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
@@ -43,7 +42,7 @@ class RequestNormalizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $loader = class_exists(AttributeLoader::class) ? new AttributeLoader() : new AnnotationLoader();
+        $loader = new AttributeLoader();
         $classMetadataFactory = new ClassMetadataFactory($loader);
         $metadataAwareNameConverter = new MetadataAwareNameConverter($classMetadataFactory);
 

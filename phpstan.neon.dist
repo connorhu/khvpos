@@ -6,3 +6,5 @@ parameters:
 
 includes:
     - tests/StaticAnalysis/phpstan.baseline.php
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon

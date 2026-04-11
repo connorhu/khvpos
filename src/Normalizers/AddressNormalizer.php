@@ -15,14 +15,12 @@ class AddressNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param Address $object
-     * @param string|null $format
-     * @param array $context
-     * @return array
+     * @return array<string, mixed>
      */
     public function normalize(mixed $object, string $format = null, array $context = []): array
     {
-        $normalized = $this->objectNormalizer->normalize($object, $format, [
+        assert($object instanceof Address);
+        $normalized = (array) $this->objectNormalizer->normalize($object, $format, [
             AbstractObjectNormalizer::IGNORED_ATTRIBUTES => [
                 'address',
             ],

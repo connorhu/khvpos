@@ -42,7 +42,7 @@ class PaymentRefundRequest implements RequestInterface
      */
     public function getAmount(): ?float
     {
-        return $this->amount / 100;
+        return $this->amount === null ? null : $this->amount / 100;
     }
 
     public function getRawAmount(): ?int

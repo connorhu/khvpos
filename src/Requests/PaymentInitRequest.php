@@ -309,7 +309,7 @@ class PaymentInitRequest implements RequestInterface
     {
         return [
             AbstractNormalizer::CALLBACKS => [
-                'totalAmount' => function (float $value, PaymentInitRequest $object): ?int {
+                'totalAmount' => function (float $value, PaymentInitRequest $object): int {
                     return $object->getRawTotalAmount();
                 },
                 'merchant' => function (Merchant $value): string {

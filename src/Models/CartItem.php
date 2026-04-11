@@ -59,7 +59,7 @@ class CartItem
      */
     public function getAmount(): ?float
     {
-        return $this->amount / 100;
+        return $this->amount === null ? null : $this->amount / 100;
     }
 
     /**

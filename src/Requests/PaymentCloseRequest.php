@@ -41,7 +41,7 @@ class PaymentCloseRequest implements RequestInterface
      */
     public function getTotalAmount(): ?float
     {
-        return $this->totalAmount / 100;
+        return $this->totalAmount === null ? null : $this->totalAmount / 100;
     }
 
     public function getRawTotalAmount(): ?int
@@ -54,7 +54,7 @@ class PaymentCloseRequest implements RequestInterface
      */
     public function setTotalAmount(?int $totalAmount): void
     {
-        $this->totalAmount = (int) round($totalAmount * 100);
+        $this->totalAmount = $totalAmount === null ? null : (int) round($totalAmount * 100);
     }
 
     #[Ignore]
