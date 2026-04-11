@@ -14,9 +14,22 @@ class BundleIntegrationTest extends KernelTestCase
         return TestKernel::class;
     }
 
+    public static function setUpBeforeClass(): void
+    {
+        static::bootKernel();
+    }
+
+    protected function tearDown(): void
+    {
+        // Do not shut the kernel down between tests: it is booted once in
+        // setUpBeforeClass() and torn down in tearDownAfterClass().
+        // Calling parent::tearDown() would invoke ensureKernelShutdown(),
+        // causing a re-boot on the next test which leaves orphaned exception
+        // handlers and triggers PHPUnit 11 "risky" warnings.
+    }
+
     public function testVPosClientIsResolvableFromContainer(): void
     {
-        self::bootKernel();
         $container = self::getContainer();
 
         $this->assertTrue($container->has(VPosClient::class));
@@ -25,7 +38,6 @@ class BundleIntegrationTest extends KernelTestCase
 
     public function testSignatureProviderIsResolvableFromContainer(): void
     {
-        self::bootKernel();
         $container = self::getContainer();
 
         $this->assertTrue($container->has(SignatureProviderInterface::class));
@@ -33,7 +45,6 @@ class BundleIntegrationTest extends KernelTestCase
 
     public function testMerchantProviderIsResolvableFromContainer(): void
     {
-        self::bootKernel();
         $container = self::getContainer();
 
         $this->assertTrue($container->has(MerchantProviderInterface::class));
@@ -41,7 +52,6 @@ class BundleIntegrationTest extends KernelTestCase
 
     public function testAllSixNormalizersAreRegisteredInContainer(): void
     {
-        self::bootKernel();
         $container = self::getContainer();
 
         $expectedNormalizers = [

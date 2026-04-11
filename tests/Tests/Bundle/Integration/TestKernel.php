@@ -56,11 +56,11 @@ class TestKernel extends Kernel
 
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir() . '/khvpos_test_cache/' . spl_object_id($this);
+        return sys_get_temp_dir() . '/khvpos_bundle_test_cache';
     }
 
     public function getLogDir(): string
     {
-        return sys_get_temp_dir() . '/khvpos_test_log';
+        return sys_get_temp_dir() . '/khvpos_bundle_test_log';
     }
 }
