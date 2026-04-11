@@ -1,9 +1,9 @@
 
 ## PHP Library for K&H Payment Gateway
 
-[![Tests status][test status image]][test status] [![Static Analysis][phpstan status image]][phpstan status] [![Coverage Status][master coverage image]][master coverage]
+[![Tests status][test status image]][test status] [![Static Analysis][phpstan status image]][phpstan status] [![codecov](https://codecov.io/gh/connorhu/khvpos/branch/2.x/graph/badge.svg?token=6B0AVBCWCP)](https://codecov.io/gh/connorhu/khvpos)
 
-[API documentation](https://github.com/khpos/Payment-gateway_HU)
+[API documentation HU](https://github.com/khpos/Payment-gateway_HU) | [API documentation EN](https://github.com/khpos/Payment-gateway_EN)
 
 ## Support chart
 
