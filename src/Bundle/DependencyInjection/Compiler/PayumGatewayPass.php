@@ -24,14 +24,16 @@ class PayumGatewayPass implements CompilerPassInterface
             return;
         }
 
+        /** @var array<string, mixed> $config */
         $config = $container->getParameter('khvpos.client_provider.config');
-        if (!isset($config['merchants'][0]['merchant_id']) || $config['merchants'][0]['merchant_id'] === '') {
+        $firstMerchant = reset($config['merchants']);
+        if (!isset($firstMerchant['merchant_id']) || $firstMerchant['merchant_id'] === '') {
             throw new \LogicException(
                 'PayumGatewayPass requires at least one merchant with a non-empty merchant_id in khvpos.client_provider.config. '
                 . 'Note: multi-merchant Payum integration is not yet supported; only the first merchant is used.'
             );
         }
-        $merchantId = $config['merchants'][0]['merchant_id'];
+        $merchantId = $firstMerchant['merchant_id'];
         // Only the first merchant is wired into Payum actions. Multi-merchant support
         // (selecting merchant by currency etc.) is not yet implemented for Payum.
 
