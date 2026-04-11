@@ -93,7 +93,28 @@ class PaymentGatewayExtensionTest extends TestCase
         $this->assertCount(2, $calls);
         $this->assertSame('addPrivateKey', $calls[0][0]);
         $this->assertSame(['M111', '/a.pem', ''], $calls[0][1]);
+        $this->assertSame('addPrivateKey', $calls[1][0]);
         $this->assertSame(['M222', '/b.pem', 'secret'], $calls[1][1]);
+    }
+
+    public function testSignatureProviderUsesCustomMipsPublicKeyPath(): void
+    {
+        $this->extension->load([['test' => false, 'mips_public_key_path' => '/custom/key.pub', 'merchants' => [
+            'default' => ['currency' => 'HUF', 'merchant_id' => 'M123', 'private_key_path' => '/tmp/key.pem', 'private_key_passphrase' => ''],
+        ]]], $this->container);
+
+        $args = $this->container->getDefinition('khvpos.signature_provider')->getArguments();
+        $this->assertSame('/custom/key.pub', $args[1]);
+    }
+
+    public function testSignatureProviderUsesBundledProductionKeyWhenNotTestAndNoCustomPath(): void
+    {
+        $this->extension->load([['test' => false, 'merchants' => [
+            'default' => ['currency' => 'HUF', 'merchant_id' => 'M123', 'private_key_path' => '/tmp/key.pem', 'private_key_passphrase' => ''],
+        ]]], $this->container);
+
+        $args = $this->container->getDefinition('khvpos.signature_provider')->getArguments();
+        $this->assertStringEndsWith('mips_pay.khpos.hu.pub', $args[1]);
     }
 
     public function testAliasIsKhvpos(): void

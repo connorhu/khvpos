@@ -76,6 +76,20 @@ class ConfigurationTest extends TestCase
         ]);
     }
 
+    public function testMerchantPrivateKeyPassphraseDefaultsToEmptyString(): void
+    {
+        $config = $this->process([
+            'merchants' => [
+                'default' => [
+                    'merchant_id' => 'M123456789',
+                    'private_key_path' => '/tmp/key.pem',
+                ],
+            ],
+        ]);
+
+        $this->assertSame('', $config['merchants']['default']['private_key_passphrase']);
+    }
+
     public function testCustomMipsPublicKeyPathIsPreserved(): void
     {
         $config = $this->process([
