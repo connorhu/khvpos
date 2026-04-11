@@ -11,6 +11,7 @@ use KHTools\VPos\Requests\GooglePayProcessRequest;
 use KHTools\VPos\Requests\OneClickEchoRequest;
 use KHTools\VPos\Requests\OneClickInitRequest;
 use KHTools\VPos\Requests\OneClickProcessRequest;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class StubRequestTest extends TestCase
@@ -28,7 +29,7 @@ class StubRequestTest extends TestCase
         ];
     }
 
-    /** @dataProvider stubClassProvider */
+    #[DataProvider(methodName: 'stubClassProvider')]
     public function testGetEndpointPathThrowsLogicException(string $class): void
     {
         $request = new $class();
@@ -52,7 +53,7 @@ class StubRequestTest extends TestCase
         ];
     }
 
-    /** @dataProvider allStubClassProvider */
+    #[DataProvider(methodName: 'allStubClassProvider')]
     public function testGetResponseClassThrowsLogicException(string $class): void
     {
         $request = new $class();

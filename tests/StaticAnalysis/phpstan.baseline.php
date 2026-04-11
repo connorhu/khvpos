@@ -227,36 +227,6 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/../../src/Requests/ApplePayEchoRequest.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Unreachable statement \\- code above always terminates\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Requests/ApplePayInitRequest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Unreachable statement \\- code above always terminates\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Requests/ApplePayProcessRequest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Unreachable statement \\- code above always terminates\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Requests/GooglePayInitRequest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Unreachable statement \\- code above always terminates\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Requests/GooglePayProcessRequest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Unreachable statement \\- code above always terminates\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Requests/OneClickInitRequest.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Unreachable statement \\- code above always terminates\\.$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Requests/OneClickProcessRequest.php',
-];
-$ignoreErrors[] = [
 	'message' => '#^Method KHTools\\\\VPos\\\\Responses\\\\EchoResponse\\:\\:getResultCode\\(\\) should return int but returns int\\|null\\.$#',
 	'count' => 1,
 	'path' => __DIR__ . '/../../src/Responses/EchoResponse.php',
