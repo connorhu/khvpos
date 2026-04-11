@@ -26,6 +26,112 @@
 | googlepay/init    | yes                 |
 | googlepay/process | yes                 |
 
+## Installation
+
+```bash
+composer require connorhu/khvpos
+```
+
+---
+
+## Symfony Bundle
+
+There is no Flex recipe — bundle registration is manual.
+
+### Register the bundle
+
+```php
+// config/bundles.php
+return [
+    KHTools\VPos\Bundle\KHVPosBundle::class => ['all' => true],
+];
+```
+
+### Configuration
+
+```yaml
+# config/packages/khvpos.yaml
+khvpos:
+    test: true   # set to false for production
+    merchants:
+        default:
+            merchant_id: '%env(KHVPOS_MERCHANT_ID)%'
+            private_key_path: '%kernel.project_dir%/config/keys/merchant.pem'
+            private_key_passphrase: '%env(KHVPOS_PRIVATE_KEY_PASSPHRASE)%'  # optional, default ''
+            currency: HUF
+```
+
+A single `VPosClient` service is registered as `khvpos.vpos_client` (also autowirable as `VPosClient`). Inject `MerchantProviderInterface` to look up the correct merchant by currency:
+
+```php
+use KHTools\VPos\Bundle\Providers\MerchantProviderInterface;
+use KHTools\VPos\VPosClient;
+
+public function __construct(
+    private VPosClient $client,
+    private MerchantProviderInterface $merchantProvider,
+) {}
+
+public function pay(): void
+{
+    $merchant = $this->merchantProvider->getMerchant('HUF');
+    $request = new PaymentInitRequest();
+    $request->setMerchant($merchant);
+    // ...
+}
+```
+
+### Multiple merchants (multiple currencies)
+
+```yaml
+khvpos:
+    test: false
+    merchants:
+        huf:
+            merchant_id: '%env(KHVPOS_HUF_MERCHANT_ID)%'
+            private_key_path: '%kernel.project_dir%/config/keys/huf.pem'
+            currency: HUF
+        eur:
+            merchant_id: '%env(KHVPOS_EUR_MERCHANT_ID)%'
+            private_key_path: '%kernel.project_dir%/config/keys/eur.pem'
+            currency: EUR
+```
+
+`$merchantProvider->getMerchant('EUR')` returns the EUR merchant.
+
+### All configuration options
+
+| Key | Type | Default | Description |
+|---|---|---|---|
+| `test` | bool | `true` | Use sandbox endpoint |
+| `mips_public_key_path` | string | `null` | Path to MIPS public key PEM; `null` uses the bundled key |
+| `version` | string | `rv1` | API version |
+| `merchants.<name>.merchant_id` | string | required | K&H merchant ID |
+| `merchants.<name>.private_key_path` | string | required | Path to RSA private key PEM |
+| `merchants.<name>.private_key_passphrase` | string | `''` | Optional key passphrase |
+| `merchants.<name>.currency` | string | `HUF` | Default currency (`HUF`, `EUR`, `USD`) |
+
+---
+
+## Payum Integration
+
+Requires `payum/core ^1.7`. For Symfony, also install `payum/payum-bundle`:
+
+```bash
+composer require payum/payum-bundle
+```
+
+With `payum/payum-bundle` installed and a `khvpos:` config block present, the `khvpos` Payum gateway is registered automatically — no extra YAML required:
+
+```php
+$gateway = $payum->getGateway('khvpos');
+$gateway->execute(new Capture($payment));
+```
+
+The first configured merchant is used. Supported Payum requests: `Capture`, `Authorize`, `Refund`, `Cancel`, `Sync`, `GetHumanStatus`, `Convert`.
+
+---
+
   [test status image]: https://github.com/connorhu/khvpos/actions/workflows/tests.yml/badge.svg?branch=2.x
   [test status]: https://github.com/connorhu/khvpos/actions/workflows/tests.yml
   [phpstan status image]: https://github.com/connorhu/khvpos/actions/workflows/static-analysis.yml/badge.svg
