@@ -190,12 +190,16 @@ class RequestNormalizerTest extends TestCase
             ],
         ]];
 
+        $customerAccount = new CustomerAccount();
+        $customerAccount->setChangedAt(new \DateTimeImmutable('2023-01-01T04:05:06+00:00'));
+
+        $customerLogin = new CustomerLogin();
+        $customerLogin->setAuth(CustomerLoginAuth::Api);
+
         $customer = new Customer();
-        $customer->account = new CustomerAccount();
-        $customer->account->changedAt = new \DateTimeImmutable('2023-01-01T04:05:06+00:00');
-        $customer->login = new CustomerLogin();
-        $customer->login->auth = CustomerLoginAuth::Api;
-        $customer->name = 'name of the customer';
+        $customer->setAccount($customerAccount);
+        $customer->setLogin($customerLogin);
+        $customer->setName('name of the customer');
         $paymentInit = new PaymentInitRequest();
         $paymentInit->setCustomer($customer);
         yield [$paymentInit, [

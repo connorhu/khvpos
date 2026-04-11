@@ -6,22 +6,22 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 class CustomerAccount
 {
-    public ?\DateTimeImmutable $createdAt = null;
+    private ?\DateTimeImmutable $createdAt = null;
 
-    public ?\DateTimeImmutable $changedAt = null;
+    private ?\DateTimeImmutable $changedAt = null;
 
-    public ?\DateTime $passwordChangedAt = null;
+    private ?\DateTime $passwordChangedAt = null;
 
-    public ?int $orderHistory = null;
+    private ?int $orderHistory = null;
 
-    public ?int $paymentsDay = null;
+    private ?int $paymentsDay = null;
 
-    public ?int $paymentsYear = null;
+    private ?int $paymentsYear = null;
 
     #[SerializedName(serializedName: 'oneclickAdds')]
-    public ?int $oneClickAdds = null;
+    private ?int $oneClickAdds = null;
 
-    public ?bool $suspicious = null;
+    private ?bool $suspicious = null;
 
     /**
      * @return \DateTimeImmutable|null

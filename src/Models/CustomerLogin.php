@@ -6,11 +6,11 @@ use KHTools\VPos\Models\Enums\CustomerLoginAuth;
 
 class CustomerLogin
 {
-    public ?CustomerLoginAuth $auth = null;
+    private ?CustomerLoginAuth $auth = null;
 
-    public ?\DateTime $authAt = null;
+    private ?\DateTime $authAt = null;
 
-    public ?string $authData;
+    private ?string $authData = null;
 
     /**
      * @return CustomerLoginAuth|null

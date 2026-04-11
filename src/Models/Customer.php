@@ -4,19 +4,19 @@ namespace KHTools\VPos\Models;
 
 class Customer
 {
-    public ?string $name = null;
+    private ?string $name = null;
 
-    public ?string $email = null;
+    private ?string $email = null;
 
-    public ?string $homePhone = null;
+    private ?string $homePhone = null;
 
-    public ?string $workPhone = null;
+    private ?string $workPhone = null;
 
-    public ?string $mobilePhone = null;
+    private ?string $mobilePhone = null;
 
-    public ?CustomerAccount $account = null;
+    private ?CustomerAccount $account = null;
 
-    public ?CustomerLogin $login = null;
+    private ?CustomerLogin $login = null;
 
     /**
      * @return string|null
