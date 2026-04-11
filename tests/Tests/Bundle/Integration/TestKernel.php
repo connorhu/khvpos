@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpClient\Psr18Client;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class TestKernel extends Kernel
 {
@@ -29,6 +30,7 @@ class TestKernel extends Kernel
             'test' => true,
             'secret' => 'test_secret',
             'http_client' => true,
+            'serializer' => ['enabled' => true],
         ]);
 
         $container->extension('khvpos', [
@@ -44,6 +46,8 @@ class TestKernel extends Kernel
         ]);
 
         $services = $container->services();
+
+        $services->set(ObjectNormalizer::class)->autowire(true)->autoconfigure(true);
 
         $services->set('psr17_factory', Psr17Factory::class);
         $services->alias(RequestFactoryInterface::class, 'psr17_factory');
