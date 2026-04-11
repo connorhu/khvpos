@@ -302,10 +302,9 @@ class PaymentInitRequest implements RequestInterface
     /**
      * @param \DateTimeInterface|null $customExpiry
      */
-    public function setCustomExpiry(?\DateTimeInterface $customExpiry): static
+    public function setCustomExpiry(?\DateTimeInterface $customExpiry): void
     {
         $this->customExpiry = $customExpiry;
-        return $this;
     }
 
     /**

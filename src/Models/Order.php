@@ -231,10 +231,9 @@ class Order
     /**
      * @param int|null $trxUsage
      */
-    public function setTrxUsage(?int $trxUsage): static
+    public function setTrxUsage(?int $trxUsage): void
     {
         $this->trxUsage = $trxUsage;
-        return $this;
     }
 
     /**
