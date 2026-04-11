@@ -1,7 +1,7 @@
 
 ## PHP Library for K&H Payment Gateway
 
-[![Tests status][test status image]][test status] [![Static Analysis][phpstan status image]][phpstan status] [![codecov](https://codecov.io/gh/connorhu/khvpos/branch/2.x/graph/badge.svg?token=6B0AVBCWCP)](https://codecov.io/gh/connorhu/khvpos)
+[![Tests status][test status image]][test status] [![Static Analysis][phpstan status image]][phpstan status] [![Coverage Status][2x coverage image]][2x coverage]
 
 [API documentation HU](https://github.com/khpos/Payment-gateway_HU) | [API documentation EN](https://github.com/khpos/Payment-gateway_EN)
 
@@ -26,10 +26,10 @@
 | googlepay/init    | yes                 |
 | googlepay/process | yes                 |
 
-  [test status image]: https://github.com/connorhu/khvpos/actions/workflows/tests.yml/badge.svg?branch=master
+  [test status image]: https://github.com/connorhu/khvpos/actions/workflows/tests.yml/badge.svg?branch=2.x
   [test status]: https://github.com/connorhu/khvpos/actions/workflows/tests.yml
   [phpstan status image]: https://github.com/connorhu/khvpos/actions/workflows/static-analysis.yml/badge.svg
   [phpstan status]: https://github.com/connorhu/khvpos/actions/workflows/static-analysis.yml
-  [master coverage image]: https://codecov.io/gh/connorhu/khvpos/branch/master/graph/badge.svg
-  [master coverage]: https://codecov.io/gh/connorhu/khvpos/branch/master
+  [2x coverage image]: https://codecov.io/gh/connorhu/khvpos/branch/2.x/graph/badge.svg
+  [2x coverage]: https://codecov.io/gh/connorhu/khvpos/branch/2.x
   [echo example]: https://github.com/connorhu/khvpos/blob/2.x/examples/01-echo-request.php
