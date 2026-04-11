@@ -65,6 +65,7 @@ A single `VPosClient` service is registered as `khvpos.vpos_client` (also autowi
 
 ```php
 use KHTools\VPos\Bundle\Providers\MerchantProviderInterface;
+use KHTools\VPos\Requests\PaymentInitRequest;
 use KHTools\VPos\VPosClient;
 
 public function __construct(
