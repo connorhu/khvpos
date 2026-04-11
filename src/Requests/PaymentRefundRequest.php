@@ -55,7 +55,7 @@ class PaymentRefundRequest implements RequestInterface
      */
     public function setAmount(?float $amount): void
     {
-        $this->amount = (int) round($amount * 100);
+        $this->amount = (int) \bcmul(number_format((float) $amount, 2, '.', ''), '100');
     }
 
     #[Ignore]
