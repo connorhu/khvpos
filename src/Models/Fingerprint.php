@@ -25,9 +25,11 @@ class Fingerprint
 	/**
 	 * @param array<string, mixed>|null $browserData
 	 */
-	public function setBrowserData(?array $browserData): void
+	public function setBrowserData(?array $browserData): self
 	{
 		$this->browserData = $browserData;
+
+		return $this;
 	}
 
 	/**
@@ -41,8 +43,10 @@ class Fingerprint
 	/**
 	 * @param array<string, mixed>|null $sdkData
 	 */
-	public function setSdkData(?array $sdkData): void
+	public function setSdkData(?array $sdkData): self
 	{
 		$this->sdkData = $sdkData;
+
+		return $this;
 	}
 }

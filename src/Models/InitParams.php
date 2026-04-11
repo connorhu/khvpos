@@ -22,13 +22,31 @@ class InitParams
 	private ?array $supportedNetworks = null;
 
 	public function getMerchantIdentifier(): ?string { return $this->merchantIdentifier; }
-	public function setMerchantIdentifier(?string $merchantIdentifier): void { $this->merchantIdentifier = $merchantIdentifier; }
+
+	public function setMerchantIdentifier(?string $merchantIdentifier): self
+	{
+		$this->merchantIdentifier = $merchantIdentifier;
+
+		return $this;
+	}
 
 	public function getMerchantName(): ?string { return $this->merchantName; }
-	public function setMerchantName(?string $merchantName): void { $this->merchantName = $merchantName; }
+
+	public function setMerchantName(?string $merchantName): self
+	{
+		$this->merchantName = $merchantName;
+
+		return $this;
+	}
 
 	public function getMerchantCountry(): ?string { return $this->merchantCountry; }
-	public function setMerchantCountry(?string $merchantCountry): void { $this->merchantCountry = $merchantCountry; }
+
+	public function setMerchantCountry(?string $merchantCountry): self
+	{
+		$this->merchantCountry = $merchantCountry;
+
+		return $this;
+	}
 
 	/**
 	 * @return list<string>|null
@@ -38,5 +56,10 @@ class InitParams
 	/**
 	 * @param list<string>|null $supportedNetworks
 	 */
-	public function setSupportedNetworks(?array $supportedNetworks): void { $this->supportedNetworks = $supportedNetworks; }
+	public function setSupportedNetworks(?array $supportedNetworks): self
+	{
+		$this->supportedNetworks = $supportedNetworks;
+
+		return $this;
+	}
 }
